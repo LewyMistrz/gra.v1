@@ -1,6 +1,8 @@
 # gra.v1
-autorzy: Maciej L. Kacper G.
+
 SFGAME tylko lepsze.
+
+autorzy: Maciej L. Kacper G.
 
 baza danych: sql database
 
