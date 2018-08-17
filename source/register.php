@@ -1,21 +1,59 @@
-<form action="/register.php">
+<head>
+<script type="text/javascript">
 
-Login: <input type="text" name="nickName">   </br> 
+function isLoginAvaible(){
+	alert("Login zajęty");
+	
+}
 
-</form>
+function isEmailAvaible() {
+	alert("email zajęty");
+	
+}
+
+function isRetypedPasswordSame(){
+	alert("wprowadzone hasła nie są takie same");
+	
+}
+
+function register(){
+	alert("cwel");
+	
+	
+}
+
+</script>
+
+</head>
+
+
+
+<body>
+Login: <input type="text" name="nickName">		</br> 
+Email: <input type="text" name="email">		</br> 
+Password: <input type="password" name="password">		</br> 
+Retype Password: <input type="password" name="retypePassword">		</br> 
+Choose player class <input type="" name="playerClass">{potem poprawic na liste rozwijana}		</br>
+Choose server <input type="" name="server">{potem poprawic na liste rozwijana}		</br>
+<input type="button" value="Zarejestruj" onclick="register();"/>
+</body>
+
+
 <?php
 
+mysq_connect('localhost','admin', 'admin');
+mysql_select_db("gra.v1");
 
-$email
+$email;
 
-$nickName
+$nickName;
 
-$password
+$password;
 
-$playerClass
+$playerClass;
 
-$server
-
+$server;
 
 
 ?>
+
