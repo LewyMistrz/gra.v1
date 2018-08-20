@@ -41,8 +41,8 @@ Choose server <input type="" name="server">{potem poprawic na liste rozwijana}		
 
 <?php
 
-mysq_connect('localhost','admin', 'admin');
-mysql_select_db("gra.v1");
+$i = mysqli_connect('localhost','admin', 'admin');
+mysql_select_db($i, "gra.v1");
 
 $email;
 
