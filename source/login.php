@@ -38,11 +38,11 @@ if (isset($_POST['loguj']))
    $rekordy = mysqli_query($i, "SELECT nickname, password FROM users WHERE nickname = '".$login."' AND password = '".hash('sha256', $haslo)."'");
    if (mysqli_num_rows($rekordy) != 0){
       mysqli_query($i, "UPDATE users SET loginTime='".$data."', ip='".$ip."' WHERE nickname='".$login."'");
- 
+	  session_start(); 
       $_SESSION['zalogowany'] = true;
       $_SESSION['login'] = $login;
- 
-      // zalogowany
+	  //zalogowany
+	  header("Location: index.php"); 
  
    }
    else echo "Wpisano złe dane.";

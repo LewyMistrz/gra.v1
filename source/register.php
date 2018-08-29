@@ -18,23 +18,30 @@ if (isset($_POST['register']))
    $haslo1 = filtruj($_POST['password']);
    $haslo2 = filtruj($_POST['marek']);
    $email = filtruj($_POST['email']);
+   $championClass = filtruj($_POST['championClass']);
    // sprawdzamy czy login nie jest już w bazie
-	if (mysqli_num_rows(mysqli_query($i, "SELECT nickname FROM users WHERE nickname = '".$login."';")) == 0)
-	{
-		if (mysqli_num_rows(mysqli_query($i, "SELECT email FROM users WHERE email = '".$email."';")) == 0)
+   if ($championClass == "Archer" || $championClass == "Assasin" || $championClass == "Dark mage" || $championClass == "Mage" || 
+   $championClass == "Palladin" || $championClass == "Shaman" || $championClass == "Warrior")
+   {
+		if (mysqli_num_rows(mysqli_query($i, "SELECT nickname FROM users WHERE nickname = '".$login."';")) == 0)
 		{
-			if ($haslo1 == $haslo2) // sprawdzamy czy hasła takie same
+			if (mysqli_num_rows(mysqli_query($i, "SELECT email FROM users WHERE email = '".$email."';")) == 0)
 			{
-				mysqli_query($i, "INSERT INTO users (nickname, email, password, server, gold, realCash, ChampionClass, expa, gender, registerTime)
-				VALUE( '".$login."', '".$email."', '".hash('sha256', $haslo1)."', 'W1', 0, 0, 'wojownik', 0, 0, '".date('Y-m-d H:i:s')."' )");
-				echo "Konto zostało utworzone!";
+				if ($haslo1 == $haslo2) // sprawdzamy czy hasła takie same
+				{
+					mysqli_query($i, "INSERT INTO users (nickname, email, password, server, gold, realCash, championClass, expa, gender, registerTime)
+					VALUE( '".$login."', '".$email."', '".hash('sha256', $haslo1)."', 'W1', 0, 0, '".$championClass."', 0, 0, '".date('Y-m-d H:i:s')."' )");
+					echo "Konto zostało utworzone!";
+					header("Location: login.php"); 
+				}
+				else echo "Hasła nie są takie same";
 			}
-			else echo "Hasła nie są takie same";
+			else echo "Podany email jest już zajęty.";
 		}
-		else echo "Podany email jest już zajęty.";
+		else echo "Podany login jest już zajęty.";
 	}
-	else echo "Podany login jest już zajęty.";
-}
+	else echo "error nieprawidłowa klasa";
+}	
 ?>
 <head>
 
@@ -87,7 +94,16 @@ Login: <input type="text" id="nickName" name="nickName">		</br>
 Email: <input type="text" id="email"	name="email"   >		</br> 
 Password: 		 <input type="Password" id="password" name="password">		</br> 
 Retype Password: <input type="Password" id="marek" name="marek">		</br> 
-Choose player class <input type="" id="playerClass" name="class">   {potem poprawic na liste rozwijana}	</br>
+Choose player class 
+		<select name="championClass">
+		<option>Archer</option>
+		<option>Assasin</option>
+		<option>Dark mage</option>
+		<option>Mage</option>
+		<option>Palladin</option>
+		<option>Shaman</option>
+		<option>Warrior</option>
+		</select> </br>
 <input type="submit" value="Zarejestruj" name="register"/>
 </form>
 </body>
