@@ -1,6 +1,7 @@
 <?php
 require 'connectToDatabase.php';
-$login = $_GET["name"];
+require 'filtruj.php';
+$login = filtruj($_GET["name"]);
 
 $loguj="select nickname from users where nickname='$login'"; 
 $rekordy = mysqli_query($i, $loguj);

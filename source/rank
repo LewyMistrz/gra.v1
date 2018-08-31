@@ -2,14 +2,11 @@
 session_start();
 if (isset($_SESSION['login'])){
 	
-//tutaj cała strona główna po zalogowaniu
-
-
-}
-else {
-	
 
 	
+	
+	
+	
 }
-
+else header("Location: login.php");
 ?>
