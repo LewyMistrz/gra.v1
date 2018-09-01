@@ -1,4 +1,4 @@
-# gra.v1
+# SFGAME
 
 SFGAME tylko lepsze.
 
