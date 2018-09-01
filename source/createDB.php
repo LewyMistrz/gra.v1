@@ -1,7 +1,7 @@
 <?php
 
-$link = mysqli_connect("127.0.0.1", "root", "", "gra.v1");
-$link->query("CREATE TABLE `users` (
+require 'connectToDatabase.php';
+mysqli_query($i, "CREATE TABLE `users` (
   `nickname` varchar(20) COLLATE utf8_bin NOT NULL,
   `email` text COLLATE utf8_bin NOT NULL,
   `password` text COLLATE utf8_bin NOT NULL,
