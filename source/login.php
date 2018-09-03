@@ -31,7 +31,7 @@ a:link {
 }
 
 a:visited {
-    color: white;
+    color: cyan;
     background-color: transparent;
     text-decoration: none;
 }
@@ -134,7 +134,7 @@ if (isset($_POST['loguj']))
 	  header("Location: index.php"); 
  
    }
-   else echo "</br>Wpisano złe dane.";
+   else echo "</br>Wpisano złe dane";
 }
 
 ?>
