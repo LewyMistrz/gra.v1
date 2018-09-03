@@ -4,10 +4,110 @@
 
 <body>
 
+<style>
+
+h1 {
+    text-shadow: 0px 0px 15px black;
+}
+
+
+@font-face {
+font-family: Font;
+src: url(/font.ttf);
+}
+
+body{
+background-attachment: fixed;
+background-image: url("graphics/bg.jpg");
+background-size: 100%;
+background-repeat: no-repeat;
+background-attachment: fixed;
+}
+
+a:link {
+    color: cyan; 
+    background-color: transparent; 
+    text-decoration: none;
+}
+
+a:visited {
+    color: white;
+    background-color: transparent;
+    text-decoration: none;
+}
+
+a:hover {
+    color: yellow;
+    background-color: transparent;
+    text-decoration: none;
+}
+
+a:active {
+    color: yellow;
+    background-color: transparent;
+    text-decoration: none;
+}
+
+input[type=text], select {
+	font-weight: bold;
+	text-align: center;
+	font-size: 60%;
+    width: 20%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type=password], select {
+	text-align: center;
+	font-size: 60%;
+    width: 20%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type=submit] {
+    font-size: 20px;
+    width: 20%;
+	font-weight: bold;
+	font-type: Font;
+    background-color: #1aa009;
+    color: white;
+    padding: 20px 20px;
+    margin: 50px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type=submit]:hover {
+    background-color: #45a049;
+}
+
+div {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+}
+
+
+</style>
+<h1 style="Margin-top: 14%">
+<center><font size="7" color="white" style="font-family: Font">
 <form method="POST" action="login.php">
-<b>Login:</b> <input type="text" name="login"><br>
-<b>Hasło:</b> <input type="password" name="haslo"><br>
+
+	
+<b>Login</b></br><input type="text" name="login"><br>
+<b>Hasło</b></br><input type="password" name="haslo"><br>
 <input type="submit" value="Zaloguj" name="loguj">
+<center></font><font size="4" color="white">Nie masz konta? <a href="register.php">Zarejestruj się</a>
 
 
 </form>
@@ -34,7 +134,7 @@ if (isset($_POST['loguj']))
 	  header("Location: index.php"); 
  
    }
-   else echo "Wpisano złe dane.";
+   else echo "</br>Wpisano złe dane.";
 }
 
 ?>
