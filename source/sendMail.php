@@ -17,29 +17,28 @@ $mail->SMTPDebug = 0;
     $mail->isSMTP();                                      
     $mail->Host = 'smtp.gmail.com';  
     $mail->SMTPAuth = true;                  
-    $mail->Username = 'LOGIN_TO_GAME_MAIL' ;          
-    $mail->Password = 'PASSWORD_TO_GAME_MAIL' ;                      
+    $mail->Username = 'eveningstudios@gmail.com';          
+    $mail->Password = 'bandit14';                      
     $mail->SMTPSecure = 'tls';                   
     $mail->Port = 587; 
 
     //Recipients
 	$mail->setLanguage('pl', 'PHPMailer\language');
-    $mail->setFrom(/*'LOGIN_TO_GAME_MAIL'*/ , 'Mailer');
+    $mail->setFrom('lewandowskimaciek82@gmail.com', 'Mailer');
     $mail->addAddress($email, $email);
     //Content
     $mail->isHTML(false);  
     $mail->Subject = 'Weryfikacja maila';
     $mail->Body    = "
  
-Potwierdź swój email '".$name."'
-Nagroda 10 waluty premium
-Kliknij poniższy link:
+Potwierdź swój email, aby otrzymać 10 chujonsów, ".$name.".
+Aby potwierdzić, kliknij w poniższy link.
 http://www.localhost/verify.php?name=".$name."&verifyText=".$verifyText."   ";
 
     $mail->send();
-    echo 'Message has been sent';
+    echo 'Wiadomość została wysłana';
 } catch (Exception $e) {
-    echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;
+    echo 'Wiadomość nie mogła zostać wysłana: ', $mail->ErrorInfo;
 }
 
 }
@@ -53,14 +52,14 @@ $mail->SMTPDebug = 0;
     $mail->isSMTP();                                      
     $mail->Host = 'smtp.gmail.com';  
     $mail->SMTPAuth = true;                  
-    $mail->Username = /*'LOGIN_TO_GAME_MAIL'*/ ;          
-    $mail->Password = /*'PASSWORD_TO_GAME_MAIL'*/;                      
+    $mail->Username = 'eveningstudios@gmail.com';          
+    $mail->Password = 'bandit14';                      
     $mail->SMTPSecure = 'tls';                   
     $mail->Port = 587; 
 
     //Recipients
 	$mail->setLanguage('pl', 'PHPMailer\language');
-    $mail->setFrom('LOGIN_TO_GAME_MAIL', 'Mailer');
+    $mail->setFrom('eveningstudios@gmail.com', 'Mailer');
     $mail->addAddress($email, $email);
     //Content
     $mail->isHTML(false);  

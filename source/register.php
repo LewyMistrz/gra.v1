@@ -16,7 +16,7 @@ if (isset($_POST['register']))
    if ($championClass == "Archer" || $championClass == "Assasin" || $championClass == "Dark mage" || $championClass == "Mage" || 
    $championClass == "Palladin" || $championClass == "Shaman" || $championClass == "Warrior")
    {
-	    if (strlen($login) <= 20  )
+	    if (strlen($login) <= 15  )
 		{	
 			if (mysqli_num_rows(mysqli_query($i, "SELECT nickname FROM users WHERE nickname = '".$login."';")) == 0)
 			{
@@ -33,7 +33,7 @@ if (isset($_POST['register']))
 									if(filter_var($email, FILTER_VALIDATE_EMAIL))
 									{
 									mysqli_query($i, "INSERT INTO users (nickname, email, password, server, gold, realCash, championClass, expa, gender, verifyText, isVerified, registerTime)
-									VALUE( '".$login."', '".$email."', '".hash('sha256', $haslo1)."', 'W1', 0, 0, '".$championClass."', 0, 0,'".$verifyText."', 0, '".date('Y-m-d H:i:s')."' )");
+									VALUE( '".$login."', '".$email."', '".hash('sha256', $haslo1)."', 'W1', 0, 10, '".$championClass."', 0, 0,'".$verifyText."', 0, '".date('Y-m-d H:i:s')."' )");
 									echo "Konto zostało utworzone!";
 									sendVerifyMail($email, $verifyText, $login);
 									header("Location: login.php"); 
@@ -104,7 +104,7 @@ function isLoginAvaible(login){
 
 <form method="POST" action="register.php">
 
-Login: <input type="text" id="nickName" name="nickName" maxlength=20>		</br> 
+Login: <input type="text" id="nickName" name="nickName" maxlength=15>		</br> 
 Email: <input type="text" id="email"	name="email"   >		</br> 
 Password: 		 <input type="Password" id="password" name="password">		</br> 
 Retype Password: <input type="Password" id="marek" name="marek">		</br> 
