@@ -47,6 +47,7 @@ a:active {
     background-color: transparent;
     text-decoration: none;
 }
+
 </style>
 
 <h1 style="Margin-top: 20%">
@@ -63,10 +64,26 @@ a:active {
 <?php
 }
 else {
-//tutaj cała strona główna po zalogowaniu
+require 'connectToDatabase.php';
+
+$username = $_SESSION['login'];
+$quer="select gold from users where nickname='$username'";
+$goldMYSQL= mysqli_query($i, $quer);
+$gold = mysqli_fetch_array($goldMYSQL);
+
+$username = $_SESSION['login'];
+$quer="select realCash from users where nickname='$username'";
+$realCashMYSQL= mysqli_query($i, $quer);
+$realCash = mysqli_fetch_array($realCashMYSQL);
+
+$username = $_SESSION['login'];
+$quer="select server from users where nickname='$username'";
+$serverMYSQL= mysqli_query($i, $quer);
+$server = mysqli_fetch_array($serverMYSQL);//tutaj cała strona główna po zalogowaniu 
 ?>
 
 <style>
+
 
 h1 {
     text-shadow: 0px 0px 15px black;
@@ -84,6 +101,12 @@ background-size: 100%;
 background-repeat: no-repeat;
 background-attachment: fixed;
 }
+
+$username = $_SESSION['login'];
+$quer="select gold from users where nickname='$username'";
+$goldMYSQL= mysqli_query($i, $quer);
+$gold = mysql_fetch_array($goldMYSQL);
+
 
 a:link {
     color: white; 
@@ -120,6 +143,10 @@ p.main {
 </style>
 <h1><p>
 <font style="font-family: Font"  color="white"><a href="logout.php"><p class="date">Wyloguj</a>
+</p>
+<font size="5" color="white">Świat <font color="yellow"><?php echo $server[0] ?></br>
+<font size="5" color="white">Hajs <font color="yellow"><?php echo $realCash[0] ?></br>
+<font size="5" color="white">Złoto <font color="yellow"><?php echo $gold[0] ?>
 
 <?php
 }

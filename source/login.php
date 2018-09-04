@@ -6,10 +6,16 @@
 
 <style>
 
+require 'connectToDatabase.php';
+
 h1 {
     text-shadow: 0px 0px 15px black;
 }
 
+$username = $_SESSION['login'];
+$quer="select gold from users where nickname='$username'"; 
+$goldMYSQL= mysqli_query($i, $quer);
+$gold = mysql_fetch_array($goldMYSQL);
 
 @font-face {
 font-family: Font;
