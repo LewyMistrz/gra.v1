@@ -79,7 +79,8 @@ $realCash = mysqli_fetch_array($realCashMYSQL);
 $username = $_SESSION['login'];
 $quer="select server from users where nickname='$username'";
 $serverMYSQL= mysqli_query($i, $quer);
-$server = mysqli_fetch_array($serverMYSQL);//tutaj cała strona główna po zalogowaniu 
+$server = mysqli_fetch_array($serverMYSQL);
+//tutaj cała strona główna po zalogowaniu 
 ?>
 
 <style>
@@ -109,7 +110,7 @@ $gold = mysql_fetch_array($goldMYSQL);
 
 
 a:link {
-    color: white; 
+    color: white; 	
     background-color: transparent; 
     text-decoration: none;
 }
@@ -140,13 +141,19 @@ p.main {
     text-align: justify;
 }
 
+
+
+
+
 </style>
 <h1><p>
-<font style="font-family: Font"  color="white"><a href="logout.php"><p class="date">Wyloguj</a>
+<font style="font-family: Font" color="white"><a href="logout.php"><p class="date">Wyloguj</a></br>
 </p>
 <font size="5" color="white">Świat <font color="yellow"><?php echo $server[0] ?></br>
 <font size="5" color="white">Hajs <font color="yellow"><?php echo $realCash[0] ?></br>
-<font size="5" color="white">Złoto <font color="yellow"><?php echo $gold[0] ?>
+<font size="5" color="white">Złoto <font color="yellow"><?php echo $gold[0] ?></br></br>
+
+<font style="font-family: Font" color="white"><a href="profile.php">Profil</a></br>
 
 <?php
 }

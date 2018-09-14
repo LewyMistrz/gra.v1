@@ -14,7 +14,7 @@ if (isset($_POST['register']))
    // sprawdzamy czy login nie jest już w bazie
    
    if ($championClass == "Archer" || $championClass == "Assasin" || $championClass == "Dark mage" || $championClass == "Mage" || 
-   $championClass == "Palladin" || $championClass == "Shaman" || $championClass == "Warrior")
+   $championClass == "Palladin" || $championClass == "Warrior")
    {
 	    if (strlen($login) <= 15  )
 		{	
@@ -34,6 +34,10 @@ if (isset($_POST['register']))
 									{
 									mysqli_query($i, "INSERT INTO users (nickname, email, password, server, gold, realCash, championClass, expa, gender, verifyText, isVerified, registerTime)
 									VALUE( '".$login."', '".$email."', '".hash('sha256', $haslo1)."', 'W1', 0, 10, '".$championClass."', 0, 0,'".$verifyText."', 0, '".date('Y-m-d H:i:s')."' )");
+									
+									mysqli_query($i, "INSERT INTO player (nickname, avatar, lvl, dmgStat, playerStamina, playerSpeed, playerDexterity, playerLuck)
+									VALUE( '".$login."', 'graphics/\avatar\/null.png', 1, 10, 10, 10, 10, 10 )");
+									
 									echo "Konto zostało utworzone!";
 									sendVerifyMail($email, $verifyText, $login);
 									header("Location: login.php"); 
@@ -274,7 +278,7 @@ Klasa postaci</br>
 <button type="button" onClick="chooseClass('Dark mage');" class="button" id='2'>Ciemny mag</button>
 <button type="button" onClick="chooseClass('Mage');" class="button" id='3'>Mag</button>
 <button type="button" onClick="chooseClass('Palladin');" class="button" id='4'>Palladyn</button>
-<button type="button" onClick="chooseClass('Shaman');" class="button" id='5'>Szaman</button>
+<button type="button" onClick="chooseClass('Archer');" class="button" id='5'>Szaman</button>
 <button type="button" onClick="chooseClass('Warrior'); " class="button"id='6'>Wojownik</button>
 
 

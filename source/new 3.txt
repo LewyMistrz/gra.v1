@@ -1,0 +1,22 @@
+dmg = (dmgStat+playerDmgStat)*weaponDmg
+hp = stamina*lvl
+percentMagicResist = magicResist/enemyLvl (max :tabelka1:)
+percentArmor = armor/enemyLvl (max :tabelka)
+critMultipler = critMultipler (max 3,5)
+critChance = luck/enemyLvl (max 50%)
+block = block (max :tabelka2:)
+dodge = speed/lvl
+
+
+
+TABELKA1
+warrior - 50%
+palladin - 75%
+mage - 25%
+dark mage - 10%
+archer - 15%
+assasin - 20%
+
+TABELKA2
+Wojowkin - 25%
+Palladyn - 35%
