@@ -28,7 +28,7 @@
 	
 <?php
 include("connectToDatabase.php");
-$query = mysqli_query($i, "select * from news order by id desc limit 0,5");
+$query = mysqli_query($i, "select * from news order by id");
 while($rekord = mysqli_fetch_array($query))
 {
 $naz = "<div id='element'>
@@ -44,5 +44,4 @@ $naz = "<div id='element'>
 }
 echo '<ul>'.$naz.'</ul>';
 ?>
-
-</body> 
+</body>
