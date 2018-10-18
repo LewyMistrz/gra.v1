@@ -15,6 +15,9 @@ require "connectToDatabase.php";
 	$stamina = mysqli_fetch_array($staminaMYSQL);
 	$stamina[0] = $stamina[0] * $lvl[0] *5; // stamina mnożona przez level a nastepnie mnożona na pięć
 
-
+	$STAMINAquer="select playerLuck from player where nickname='$login'";
+	$LuckMYSQL= mysqli_query($i, $STAMINAquer);
+	$Luck = mysqli_fetch_array($staminaMYSQL);
+	$Luck[0] = $Luck[0] *2 / $lvl[0]; // luck nie chce mi sie robic opisow lol chyba ogarniesz
 
 ?> 

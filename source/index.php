@@ -140,11 +140,6 @@ p.date {
 p.main {
     text-align: justify;
 }
-
-
-
-
-
 </style>
 <h1><p>
 <font style="font-family: Font" color="white"><a href="logout.php"><p class="date">Wyloguj</a></br>
@@ -154,6 +149,7 @@ p.main {
 <font size="5" color="white">Złoto <font color="yellow"><?php echo $gold[0] ?></br></br>
 
 <font style="font-family: Font" color="white"><a href="profile.php">Profil</a></br>
+<font style="font-family: Font" color="white"><a href="arena.php">Arena</a></br>
 
 <?php
 }

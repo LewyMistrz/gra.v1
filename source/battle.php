@@ -30,7 +30,6 @@ p.main {
 
 <font style="font-family: Font" color="white">
 
-
 <?php
 require "connectToDatabase.php";
 require "filtruj.php";
