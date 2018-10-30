@@ -22,8 +22,8 @@ require "connectToDatabase.php";
 	$stamina = mysqli_fetch_array($staminaMYSQL);
 	$stamina[0] = $stamina[0] * $lvl[0] *5; // stamina mnożona przez level a nastepnie mnożona na pięć
 
-	$PLAYERLUCKquer="select luck from player where nickname='$login'";
-	$luckMYSQL= mysqli_query($i, $PLAYERLUCKquer);
+	$LUCKquer="select luck from player where nickname='$login'";
+	$luckMYSQL= mysqli_query($i, $LUCKquer);
 	$luck = mysqli_fetch_array($luckMYSQL);
 	$luck[0] = $luck[0] *2 / $lvl[0]; // luck nie chce mi sie robic opisow lol chyba ogarniesz
 
@@ -44,9 +44,9 @@ require "connectToDatabase.php";
 	$class = mysqli_fetch_array($classMYSQL);
 	
 	
-	$PLAYERSPEEDquer="select speed from player where nickname='$login'";
-	$playerSpeedMYSQL= mysqli_query($i, $PLAYERSPEEDquer);
-	$playerSpeed = mysqli_fetch_array($playerSpeedMYSQL);
+	$SPEEDquer="select speed from player where nickname='$login'";
+	$speedMYSQL= mysqli_query($i, $SPEEDquer);
+	$speed = mysqli_fetch_array($speedMYSQL);
 	
 	$FIGHTSquer="select fights from player where nickname='$login'";
 	$fightsMYSQL= mysqli_query($i, $FIGHTSquer);

@@ -6,35 +6,42 @@ require 'connectToDatabase.php';
 require 'filtruj.php';
 require "calculateStats.php";
 
-if(isset($_POST['plus'])) {
-	$stat = filtruj($_POST['plus']);
-	if ($stat == "inteligence") {
-		if ($gold[0] >= "9"){
-			mysqli_query($i, "UPDATE player SET dmgStat= dmgStat +1 WHERE nickname='$username'");
-			mysqli_query($i, "UPDATE users SET gold= gold -10 WHERE nickname='$username'");
+	if(isset($_POST['plus'])) {
+		$stat = filtruj($_POST['plus']);
+		if ($stat == "inteligence") {
+			if ($gold[0] >= "9"){
+				mysqli_query($i, "UPDATE player SET dmgStat= dmgStat +1 WHERE nickname='$username'");
+				mysqli_query($i, "UPDATE users SET gold= gold -10 WHERE nickname='$username'");
+			}
 		}
+		if ($stat == "stamina") {
+			if ($gold[0] >= "9"){
+				mysqli_query($i, "UPDATE player SET stamina= stamina +1 WHERE nickname='$username'");
+				mysqli_query($i, "UPDATE users SET gold= gold -10 WHERE nickname='$username'");
+			}
+		} 
+		if ($stat == "luck") {
+			if ($gold[0] >= "9"){
+				mysqli_query($i, "UPDATE player SET luck= luck +1 WHERE nickname='$username'");
+				mysqli_query($i, "UPDATE users SET gold= gold -10 WHERE nickname='$username'");
+			}
+		}
+		if ($stat == "speed") {
+			if ($gold[0] >= "9"){
+				mysqli_query($i, "UPDATE player SET speed= speed +1 WHERE nickname='$username'");
+				mysqli_query($i, "UPDATE users SET gold= gold -10 WHERE nickname='$username'");
+			}
+		}
+		if ($stat == "dexterity") {
+			if ($gold[0] >= "9"){
+				mysqli_query($i, "UPDATE player SET dexterity= dexterity +1 WHERE nickname='$username'");
+				mysqli_query($i, "UPDATE users SET gold= gold -10 WHERE nickname='$username'");
+			}
+		}
+		header("Location: profile.php"); 
 	}
-	if ($stat == "stamina") {
-		if ($gold[0] >= "9"){
-			mysqli_query($i, "UPDATE player SET playerStamina= playerStamina +1 WHERE nickname='$username'");
-			mysqli_query($i, "UPDATE users SET gold= gold -10 WHERE nickname='$username'");
-		}
-	} 
-	if ($stat == "luck") {
-		if ($gold[0] >= "9"){
-			mysqli_query($i, "UPDATE player SET playerLuck= playerLuck +1 WHERE nickname='$username'");
-			mysqli_query($i, "UPDATE users SET gold= gold -10 WHERE nickname='$username'");
-		}
-	}
-	if ($stat == "speed") {
-		if ($gold[0] >= "9"){
-			mysqli_query($i, "UPDATE player SET playerSpeed= playerSpeed +1 WHERE nickname='$username'");
-			mysqli_query($i, "UPDATE users SET gold= gold -10 WHERE nickname='$username'");
-		}
-	}
-	header("Location: profile.php"); 
 }
-
+else header("Location: login.php");
 ?>
 <style>
 h1 {
@@ -107,6 +114,36 @@ input[type=submit] {
     cursor: pointer;
 }
 
+input[type=submit] {
+    font-size: 23px;
+    width: 30px;
+	height: 30px;
+	font-weight: bold;
+	font-type: Font;
+    background-color: #ca8600;
+    color: white;
+    padding: 0px 0px;
+    margin: 0px 0;
+    border: none;
+    border-radius: 100px;
+    cursor: pointer;
+}
+
+.button {
+    font-size: 23px;
+    width: 30px;
+	height: 30px;
+	font-weight: bold;
+	font-type: Font;
+    background-color: #ca8600;
+    color: white;
+    padding: 0px 0px;
+    margin: 0px 0;
+    border: none;
+    border-radius: 100px;
+    cursor: pointer;
+}
+
 input[type=submit]:hover {
     background-color: #cac200;
 </style>
@@ -123,11 +160,22 @@ input[type=submit]:hover {
 
 <h2>
 	
+	
 <form method="POST" action="profile.php">
-<input type="submit" value="inteligence" name="plus">
+<button class="button" type="submit" value="inteligence" name="plus">+</button>
 
 <form method="POST" action="profile.php">
-<input type="submit" value="stamina" name="plus">
+<button class="button" type="submit" value="stamina" name="plus">+</button>
+
+<form method="POST" action="profile.php">
+<button class="button" type="submit" value="luck" name="plus">+</button>
+
+<form method="POST" action="profile.php">
+<button class="button" type="submit" value="speed" name="plus">+</button>
+
+<form method="POST" action="profile.php">
+<button class="button" type="submit" value="dexterity" name="plus">+</button>
+
 
 <center><font size="7" color="white">Poziom <?php echo $lvl[0] ?><font size="5"></br></br></br></h1>
 
@@ -140,8 +188,8 @@ input[type=submit]:hover {
 <font color="silver">Szczęście <font color="white"><?php echo $luck[0] ?> 
 <font color="silver"></b>Trafienie krytyczne <font color="white"><?php echo $stamina[0]*2 / $lvl[0] ?>%</br>
 
-<font color="silver">Szybkość <font color="white"><?php echo $playerSpeed[0]?> 
-<font color="silver"></b>Szansa na unik <font color="white"><?php echo $playerSpeed[0]*5 / $lvl[0]/3 ?>%</br>
+<font color="silver">Szybkość <font color="white"><?php echo $speed[0]?> 
+<font color="silver"></b>Szansa na unik <font color="white"><?php echo $speed[0]*5 / $lvl[0]/3 ?>%</br>
 
 <font color="silver">Multiplikator <font color="white"><?php echo $dmg[0]?> 
 <font color="silver"></b>Mnożnik traf. kryt. <font color="white"><?php echo 1.5 + $dmg[0]/100 / $lvl[0] ?>x</br>
@@ -149,7 +197,3 @@ input[type=submit]:hover {
 
 <font color="silver">Punkty bloku <font color="white"><?php echo $stamina[0] ?> 
 <font color="silver"></b>Szansa na blok <font color="white"><?php echo $stamina[0] / ($lvl[0]*2) ?>%</br>
-<?php	
-}
-else header("Location: login.php");
-?>

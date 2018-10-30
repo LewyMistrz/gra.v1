@@ -33,15 +33,15 @@ while($rekord = mysqli_fetch_array($query))
 {
 $naz = "<div id='element'>
 			<div id='name'>
-				<h1>$rekord[1] | $rekord[3] | $rekord[2] </h1>
+				<h1>Tytuł: $rekord[1] | Autor: $rekord[3] | Data: $rekord[4] </h1>
 			</div>
 			<div id='inne'>
-				<p>$rekord[4]</p>
+				<p>$rekord[2]</p>
 			</div>
 		</div> </br>
-		
+
 		";
+		echo '<ul>'.$naz.'</ul>';
 }
-echo '<ul>'.$naz.'</ul>';
 ?>
 </body>
