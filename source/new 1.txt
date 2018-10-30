@@ -1,11 +1,10 @@
-weaponDmg: Obrażenia na broni
+﻿weaponDmg: Obrażenia na broni
 armor: Procent zmniejszenia otrzymywanynch obrażeń fizycznych
 magic resist: Procent zmniejszenia otrzymywanych obrażeń magicznych
 block: Szansa na zblokowanie zwykłego autoataku przeciwnika
 crit multipler: Obrażenia zadawane przez trafienie krytyczne
 intelligence: Statystyka przelicznikowa
 strength: Statystyka przelicznikowa
-speed: Statystyka przelicznikowa wpływająca na unik (dodge)
-dexterity: Statystyka przelicznikowa wpływająca na attack speed (attackspeed) (AS)
+dexterity: Statystyka przelicznikowa wpływająca na unik (dodge)
 stamina: Statystyka przelicznikowa wpływająca na hitpoints (HP)
 luck: Statystyka przelicznikowa wpływająca na crit

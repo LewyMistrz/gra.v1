@@ -138,7 +138,7 @@ function chooseClass(klasa) {
 	document.getElementById("5").setAttribute("style","border-color: #1967e5");
 	document.getElementById("6").setAttribute("style","border-color: #1967e5");
 	}
-	if (klasa == 'Shaman') {
+	if (klasa == 'Archer') {
 	document.getElementById("5").setAttribute("style","border-color: red");
 	
 	document.getElementById("2").setAttribute("style","border-color: #1967e5");
@@ -278,7 +278,7 @@ Klasa postaci</br>
 <button type="button" onClick="chooseClass('Dark mage');" class="button" id='2'>Ciemny mag</button>
 <button type="button" onClick="chooseClass('Mage');" class="button" id='3'>Mag</button>
 <button type="button" onClick="chooseClass('Palladin');" class="button" id='4'>Palladyn</button>
-<button type="button" onClick="chooseClass('Archer');" class="button" id='5'>Szaman</button>
+<button type="button" onClick="chooseClass('Archer');" class="button" id='5'>Strzelec</button>
 <button type="button" onClick="chooseClass('Warrior'); " class="button"id='6'>Wojownik</button>
 
 

@@ -1,3 +1,32 @@
+<?php
+session_start();
+if (isset($_SESSION['login'])){
+	
+require 'connectToDatabase.php';
+require 'filtruj.php';
+require "calculateStats.php";
+?>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<Script>
+
+function changeEnemy()
+{
+		newNick = document.getElementById("nickName").value
+		var nick;
+    if (newNick != nick) {
+        nick = newNick;
+        isLoginAvaible(newNick);
+    }
+}
+
+
+
+
+</script>
+
+
+
 <style>
 input[name="atak"] {
     font-size: 20px;
@@ -111,17 +140,17 @@ div.c {
 <h1>
 <a href="profile.php">spierdalam elo</a>
 <font size=5 style="font-family: Font" color="white">
-<center><font color="red"><b>Odbyt</b><font color="white">e walki: <font color="yellow">&sex<font color="white">/<font color="yellow">15</br><font color="white">
+<center><font color="red"><b>Odbyt</b><font color="white">e walki: <font color="yellow"><?php echo $fights[0] ?><font color="white">/<font color="yellow">15</br><font color="white">
 Walcząc na arenie zdobywasz doświadczenie!</br>
 Czy chesz się zmierzyć z przeciwnikiem <font color="yellow">&enemyUsername<font color="white">?</br>
 <input type="submit" value="Zmień przeciwnika" name="newEnemy"></br></br>
 
 <div class="b">
 <b><font color="orange" size="6	">Twoje statystyki</b></font></br></br>
-<font color="white">Klasa <font color="yellow">class</br>
-<font color="white">Poziom <font color="yellow">lvl</br>
-<font color="white">$dmgStatName <font color="yellow">dmgStatAmount</br>
-<font color="white">HP <font color="yellow">HP</br>
+<font color="white">Klasa <font color="yellow"><?php echo $class[0] ?></br>
+<font color="white">Poziom <font color="yellow"><?php echo $lvl[0] ?></br>
+<font color="white"><?php echo $dmgStatName ?> <font color="yellow">dmgStatAmount</br>
+<font color="white">HP <font color="yellow"><?php echo $stamina[0] ?></br>
 <font color="white">Cios krytyczny <font color="yellow">szansa na</br>
 <font color="white">Mnożnik kryt. <font color="yellow">mnoznikCrit</br>
 <font color="white">Blok <font color="yellow">szansa na</br>
@@ -140,5 +169,10 @@ Czy chesz się zmierzyć z przeciwnikiem <font color="yellow">&enemyUsername<fon
 
 <img src="graphics/postac.jpg">
 
-<div class="c"></br><input type="submit" value="Atak!" name="atak"></div>
+<div class="c"></br><input type="submit" value="Atak!" name="atak" onclick="changeEnemy();"></div>
 </br>
+
+<?php	
+}
+else header("Location: login.php");
+?>

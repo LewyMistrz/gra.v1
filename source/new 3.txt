@@ -7,8 +7,6 @@ critChance = luck/enemyLvl (max 50%)
 block = block (max :tabelka2:)
 dodge = speed/lvl
 
-
-
 TABELKA1
 warrior - 50%
 palladin - 75%
