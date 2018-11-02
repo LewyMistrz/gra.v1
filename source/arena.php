@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (isset($_SESSION['login'])){
-	
+	$login = $_SESSION['login'];
 require 'connectToDatabase.php';
 require 'filtruj.php';
 require "calculateStats.php";
@@ -20,12 +20,7 @@ function changeEnemy()
     }
 }
 
-
-
-
 </script>
-
-
 
 <style>
 input[name="atak"] {
@@ -132,29 +127,31 @@ div.c {
     top: 90%;
     bottom: 0;
     left: 0.1%;
-    width: 100%;
+    width: 99%;
 }
 
 
 </style>
+
 <h1>
 <a href="profile.php">spierdalam elo</a>
 <font size=5 style="font-family: Font" color="white">
 <center><font color="red"><b>Odbyt</b><font color="white">e walki: <font color="yellow"><?php echo $fights[0] ?><font color="white">/<font color="yellow">15</br><font color="white">
 Walcząc na arenie zdobywasz doświadczenie!</br>
 Czy chesz się zmierzyć z przeciwnikiem <font color="yellow">&enemyUsername<font color="white">?</br>
-<input type="submit" value="Zmień przeciwnika" name="newEnemy"></br></br>
+<input type="submit" value="Zmień przeciwnika" name="newEnemy" onclick="changeEnemy();"></br></br>
 
 <div class="b">
 <b><font color="orange" size="6	">Twoje statystyki</b></font></br></br>
 <font color="white">Klasa <font color="yellow"><?php echo $class[0] ?></br>
 <font color="white">Poziom <font color="yellow"><?php echo $lvl[0] ?></br>
-<font color="white"><?php echo $dmgStatName ?> <font color="yellow">dmgStatAmount</br>
+<font color="white"><?php echo $dmgStatName ?> <font color="yellow"><?php echo $dmg[0] ?></br>
 <font color="white">HP <font color="yellow"><?php echo $stamina[0] ?></br>
 <font color="white">Cios krytyczny <font color="yellow">szansa na</br>
 <font color="white">Mnożnik kryt. <font color="yellow">mnoznikCrit</br>
 <font color="white">Blok <font color="yellow">szansa na</br>
 </div>
+
 
 <div class="a">
 <b><font color="orange" size="6	">Statystyki przeciwnika</b></font></br></br>
@@ -169,8 +166,11 @@ Czy chesz się zmierzyć z przeciwnikiem <font color="yellow">&enemyUsername<fon
 
 <img src="graphics/postac.jpg">
 
-<div class="c"></br><input type="submit" value="Atak!" name="atak" onclick="changeEnemy();"></div>
-</br>
+<?php
+if ($fights[0] < 15)
+echo "<div class='c'></br><input type='submit' value='Atak!' name='atak'></div></br>";
+else echo "<div class='c'>nie masz już energii</div></br>";
+?>
 
 <?php	
 }

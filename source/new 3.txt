@@ -1,11 +1,11 @@
 dmg = (dmgStat+playerDmgStat)*weaponDmg
-hp = stamina*lvl
+hp = stamina*lvl 										   // zrobione
 percentMagicResist = magicResist/enemyLvl (max :tabelka1:)
 percentArmor = armor/enemyLvl (max :tabelka)
-critMultipler = critMultipler (max 3,5)
+critMultipler = critMultipler (max 3,5) 				   //zrobione
 critChance = luck/enemyLvl (max 50%)
-block = block (max :tabelka2:)
-dodge = speed/lvl
+block = block (max :tabelka2:) 							   //zrobione
+dodge = speed/lvl										   //zrobione
 
 TABELKA1
 warrior - 50%

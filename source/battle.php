@@ -34,6 +34,8 @@ p.main {
 session_start();
 if (isset($_SESSION['login'])){
 	
+	$login = $_SESSION['login'];
+	
 	require "connectToDatabase.php";
 	require "filtruj.php";
 	require "calculateStats.php";

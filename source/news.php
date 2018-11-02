@@ -28,7 +28,7 @@
 	
 <?php
 
-include("connectToDatabase.php");
+require "connectToDatabase.php";
 $query = mysqli_query($i, "select * from news order by id desc limit 0,5");
 
 while($rekord = mysqli_fetch_array($query))

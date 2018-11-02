@@ -1,41 +1,55 @@
 <?php
 session_start();
-if (isset($_SESSION['login'])){
-	
 require 'connectToDatabase.php';
 require 'filtruj.php';
+if (isset($_SESSION['login'])){
+	
+	if(isset($_GET['nick']))
+	{
+		$login = filtruj($_GET['nick']);
+		$loguj="select nickname from users where nickname='$login'"; 
+			$rekordy = mysqli_query($i, $loguj);
+			if(mysqli_num_rows($rekordy)==0)
+				$isLoginUsed = 0;
+			else $isLoginUsed = 1;
+		if ($isLoginUsed == 0)
+			header("Location: profile.php");
+	} else
+		$login = $_SESSION['login'];
+	
 require "calculateStats.php";
 
+if($login == $_SESSION['login'])
 	if(isset($_POST['plus'])) {
 		$stat = filtruj($_POST['plus']);
 		if ($stat == "inteligence") {
-			if ($gold[0] >= "9"){
-				mysqli_query($i, "UPDATE player SET dmgStat= dmgStat +1 WHERE nickname='$username'");
-				mysqli_query($i, "UPDATE users SET gold= gold -10 WHERE nickname='$username'");
+			if ($gold[0] >= "10"){
+				mysqli_query($i, "UPDATE player SET dmgStat= dmgStat +1 WHERE nickname='$login'");
+				mysqli_query($i, "UPDATE users SET gold= gold -10 WHERE nickname='$login'");
 			}
 		}
 		if ($stat == "stamina") {
-			if ($gold[0] >= "9"){
-				mysqli_query($i, "UPDATE player SET stamina= stamina +1 WHERE nickname='$username'");
-				mysqli_query($i, "UPDATE users SET gold= gold -10 WHERE nickname='$username'");
+			if ($gold[0] >= "10"){
+				mysqli_query($i, "UPDATE player SET stamina= stamina +1 WHERE nickname='$login'");
+				mysqli_query($i, "UPDATE users SET gold= gold -10 WHERE nickname='$login'");
 			}
 		} 
 		if ($stat == "luck") {
-			if ($gold[0] >= "9"){
-				mysqli_query($i, "UPDATE player SET luck= luck +1 WHERE nickname='$username'");
-				mysqli_query($i, "UPDATE users SET gold= gold -10 WHERE nickname='$username'");
+			if ($gold[0] >= "10"){
+				mysqli_query($i, "UPDATE player SET luck= luck +1 WHERE nickname='$login'");
+				mysqli_query($i, "UPDATE users SET gold= gold -10 WHERE nickname='$login'");
 			}
 		}
 		if ($stat == "speed") {
-			if ($gold[0] >= "9"){
-				mysqli_query($i, "UPDATE player SET speed= speed +1 WHERE nickname='$username'");
-				mysqli_query($i, "UPDATE users SET gold= gold -10 WHERE nickname='$username'");
+			if ($gold[0] >= "10"){
+				mysqli_query($i, "UPDATE player SET speed= speed +1 WHERE nickname='$login'");
+				mysqli_query($i, "UPDATE users SET gold= gold -10 WHERE nickname='$login'");
 			}
 		}
 		if ($stat == "dexterity") {
-			if ($gold[0] >= "9"){
-				mysqli_query($i, "UPDATE player SET dexterity= dexterity +1 WHERE nickname='$username'");
-				mysqli_query($i, "UPDATE users SET gold= gold -10 WHERE nickname='$username'");
+			if ($gold[0] >= "10"){
+				mysqli_query($i, "UPDATE player SET dexterity= dexterity +1 WHERE nickname='$login'");
+				mysqli_query($i, "UPDATE users SET gold= gold -10 WHERE nickname='$login'");
 			}
 		}
 		header("Location: profile.php"); 
@@ -151,6 +165,10 @@ input[type=submit]:hover {
 <h1><p>
 <font style="font-family: Font" color="white"><a href="logout.php"><p class="date">Wyloguj</a></br>
 </p>
+<?php
+if($login != $_SESSION['login'])
+echo " <center> Nick: $login </center> </br>";	
+?>
 <font size="5" color="white">Świat <font color="yellow"><?php echo $server[0] ?></br>
 <font size="5" color="white">Hajs <font color="yellow"><?php echo $realCash[0] ?></br>
 <font size="5" color="white">Złoto <font color="yellow"><?php echo $gold[0] ?></br></br></br>
@@ -159,22 +177,25 @@ input[type=submit]:hover {
 <font style="font-family: Font" color="white"><a href="arena.php">Arena</a></br>
 
 <h2>
-	
-	
-<form method="POST" action="profile.php">
-<button class="button" type="submit" value="inteligence" name="plus">+</button>
+<?php
+if($login == $_SESSION['login'])
+	echo "
+<form method='POST' action='profile.php'>
+<button class='button' type='submit' value='inteligence' name='plus'>+</button>
 
-<form method="POST" action="profile.php">
-<button class="button" type="submit" value="stamina" name="plus">+</button>
+<form method='POST' action='profile.php'>
+<button class='button' type='submit' value='stamina' name='plus'>+</button>
 
-<form method="POST" action="profile.php">
-<button class="button" type="submit" value="luck" name="plus">+</button>
+<form method='POST' action='profile.php'>
+<button class='button' type='submit' value='luck' name='plus'>+</button>
 
-<form method="POST" action="profile.php">
-<button class="button" type="submit" value="speed" name="plus">+</button>
+<form method='POST' action='profile.php'>
+<button class='button' type='submit' value='speed' name='plus'>+</button>
 
-<form method="POST" action="profile.php">
-<button class="button" type="submit" value="dexterity" name="plus">+</button>
+<form method='POST' action='profile.php'>
+<button class='button' type='submit' value='dexterity' name='plus'>+</button>
+";
+?>
 
 
 <center><font size="7" color="white">Poziom <?php echo $lvl[0] ?><font size="5"></br></br></br></h1>

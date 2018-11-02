@@ -1,17 +1,11 @@
 <?php 
 require "connectToDatabase.php";
 	
-	if (isset($_SESSION['login']))
-		$login = $_SESSION['login'];
-		
-	if (isset($_POST['login']))
-		$login = $_POST['login'];
-	
 	
 	$DMGquer="select dmgStat from player where nickname='$login'";
 	$dmgMYSQL= mysqli_query($i, $DMGquer);
 	$dmg = mysqli_fetch_array($dmgMYSQL);
-	$dmg[0] = $dmg[0] * rand(75, 125) /100; // mnożone razy critchance 
+	//$dmg[0] = $dmg[0] * rand(75, 125) /100; // mnożone razy critchance 
 
 	$LVLquer="select lvl from player where nickname='$login'";
 	$lvlMYSQL= mysqli_query($i, $LVLquer);
@@ -20,7 +14,6 @@ require "connectToDatabase.php";
 	$STAMINAquer="select stamina from player where nickname='$login'";
 	$staminaMYSQL= mysqli_query($i, $STAMINAquer);
 	$stamina = mysqli_fetch_array($staminaMYSQL);
-	$stamina[0] = $stamina[0] * $lvl[0] *5; // stamina mnożona przez level a nastepnie mnożona na pięć
 
 	$LUCKquer="select luck from player where nickname='$login'";
 	$luckMYSQL= mysqli_query($i, $LUCKquer);
@@ -52,11 +45,34 @@ require "connectToDatabase.php";
 	$fightsMYSQL= mysqli_query($i, $FIGHTSquer);
 	$fights = mysqli_fetch_array($fightsMYSQL);
 	
+	
+	$TROPHquer="select fights from player where nickname='$login'";
+	$trophMYSQL= mysqli_query($i, $TROPHquer);
+	$troph = mysqli_fetch_array($trophMYSQL);
+	
+
 
 //$quer="select critMultipler from eq where nickname='$login'";
 //$critMultiplerMYSQL= mysqli_query($i, $quer);
 //$critMultipler = mysqli_fetch_array($critMultiplerMYSQL);
 
+
+	//$critMultiplier = //tutaj dodac wszystkie statystyki z przedmiotow zalozonych
+	//if ($critMultipler > 3.5)
+	//	$critMultipler = 3.5;
+
+	//if ($class[0] == "Palladin" || $class[0] == "Warrior")
+	//$block = ;
+	//if ($class[0] == "Palladin" || $block > 35)
+	//	$block = 35;
+	//if ($class[0] == "Warrior" || $block > 25)
+	//	$block = 25;
+	
+	//$critChance = $luck[0] / enemyLvl;
+	
+	$dodge = $speed[0] / $lvl[0];
+
+	$hp = $stamina[0] * $lvl[0];
 
 	if($class[0] == "Archer" || $class[0] == "Assasin")
 		$dmgStatName = "Zręczność";
