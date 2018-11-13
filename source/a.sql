@@ -110,7 +110,15 @@ CREATE TABLE `users` (
   `gender` tinyint(1) NOT NULL,
   `verifyText` text COLLATE utf8_bin NOT NULL,
   `isVerified` tinyint(1) NOT NULL,
-  `registerTime` datetime NOT NULL
+  `registerTime` datetime NOT NULL,
+  `avatar` text COLLATE utf8_bin NOT NULL,
+  `lvl` int(11) NOT NULL,
+  `dmgStat` int(11) NOT NULL,
+  `stamina` int(11) NOT NULL,
+  `speed` int(11) NOT NULL,
+  `dexterity` int(11) NOT NULL,
+  `luck` int(11) NOT NULL,
+  `fights` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --

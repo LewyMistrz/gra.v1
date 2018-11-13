@@ -1,21 +1,20 @@
 <?php 
 require "connectToDatabase.php";
 	
-	
-	$DMGquer="select dmgStat from player where nickname='$login'";
+	$DMGquer="select dmgStat from users where nickname='$login'";
 	$dmgMYSQL= mysqli_query($i, $DMGquer);
 	$dmg = mysqli_fetch_array($dmgMYSQL);
 	//$dmg[0] = $dmg[0] * rand(75, 125) /100; // mnożone razy critchance 
 
-	$LVLquer="select lvl from player where nickname='$login'";
+	$LVLquer="select lvl from users where nickname='$login'";
 	$lvlMYSQL= mysqli_query($i, $LVLquer);
 	$lvl = mysqli_fetch_array($lvlMYSQL);
 	
-	$STAMINAquer="select stamina from player where nickname='$login'";
+	$STAMINAquer="select stamina from users where nickname='$login'";
 	$staminaMYSQL= mysqli_query($i, $STAMINAquer);
 	$stamina = mysqli_fetch_array($staminaMYSQL);
 
-	$LUCKquer="select luck from player where nickname='$login'";
+	$LUCKquer="select luck from users where nickname='$login'";
 	$luckMYSQL= mysqli_query($i, $LUCKquer);
 	$luck = mysqli_fetch_array($luckMYSQL);
 	$luck[0] = $luck[0] *2 / $lvl[0]; // luck nie chce mi sie robic opisow lol chyba ogarniesz
@@ -37,20 +36,24 @@ require "connectToDatabase.php";
 	$class = mysqli_fetch_array($classMYSQL);
 	
 	
-	$SPEEDquer="select speed from player where nickname='$login'";
+	$SPEEDquer="select speed from users where nickname='$login'";
 	$speedMYSQL= mysqli_query($i, $SPEEDquer);
 	$speed = mysqli_fetch_array($speedMYSQL);
 	
-	$FIGHTSquer="select fights from player where nickname='$login'";
+	$FIGHTSquer="select fights from users where nickname='$login'";
 	$fightsMYSQL= mysqli_query($i, $FIGHTSquer);
 	$fights = mysqli_fetch_array($fightsMYSQL);
 	
 	
-	$TROPHquer="select fights from player where nickname='$login'";
+	$TROPHquer="select fights from users where nickname='$login'";
 	$trophMYSQL= mysqli_query($i, $TROPHquer);
 	$troph = mysqli_fetch_array($trophMYSQL);
 	
 
+	$WEAPONquer="select id from eq where username='$login' AND isEquiped=1 AND type='weapon'";
+	$weaponMYSQL= mysqli_query($i, $WEAPONquer);
+	$weapon = mysqli_fetch_array($weaponMYSQL);
+	
 
 //$quer="select critMultipler from eq where nickname='$login'";
 //$critMultiplerMYSQL= mysqli_query($i, $quer);

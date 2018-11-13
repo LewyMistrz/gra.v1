@@ -2,7 +2,7 @@
 function filtruj($zmienna)
 {
 	require 'connectToDatabase.php';
-
+	
     if(get_magic_quotes_gpc())
         $zmienna = stripslashes($zmienna); 
 		$zmienna = htmlspecialchars(trim($zmienna));

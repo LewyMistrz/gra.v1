@@ -7,21 +7,6 @@ require 'filtruj.php';
 require "calculateStats.php";
 ?>
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<Script>
-
-function changeEnemy()
-{
-		newNick = document.getElementById("nickName").value
-		var nick;
-    if (newNick != nick) {
-        nick = newNick;
-        isLoginAvaible(newNick);
-    }
-}
-
-</script>
-
 <style>
 input[name="atak"] {
     font-size: 20px;
@@ -133,25 +118,29 @@ div.c {
 
 </style>
 
+<head>
+
+</head>
+
+<body>
 <h1>
 <a href="profile.php">spierdalam elo</a>
 <font size=5 style="font-family: Font" color="white">
-<center><font color="red"><b>Odbyt</b><font color="white">e walki: <font color="yellow"><?php echo $fights[0] ?><font color="white">/<font color="yellow">15</br><font color="white">
+<center><font color="red"><b>Odbyt</b><font color="white">e walki: <font color="yellow"> <span id='fights'> </span> <font color="white">/<font color="yellow">15</br><font color="white">
 Walcząc na arenie zdobywasz doświadczenie!</br>
 Czy chesz się zmierzyć z przeciwnikiem <font color="yellow">&enemyUsername<font color="white">?</br>
 <input type="submit" value="Zmień przeciwnika" name="newEnemy" onclick="changeEnemy();"></br></br>
 
 <div class="b">
 <b><font color="orange" size="6	">Twoje statystyki</b></font></br></br>
-<font color="white">Klasa <font color="yellow"><?php echo $class[0] ?></br>
-<font color="white">Poziom <font color="yellow"><?php echo $lvl[0] ?></br>
-<font color="white"><?php echo $dmgStatName ?> <font color="yellow"><?php echo $dmg[0] ?></br>
-<font color="white">HP <font color="yellow"><?php echo $stamina[0] ?></br>
+<font color="white">Klasa <font color="yellow"> <span id='class'> </span> </br>
+<font color="white">Poziom <font color="yellow"> <span id='lvl'> </span> </br>
+<font color="white"> <span id='dmgStatName'> </span> <font color="yellow"><span id='dmgStat'> </span></br>
+<font color="white">HP <font color="yellow"> <span id='stamina'> </span> </br>
 <font color="white">Cios krytyczny <font color="yellow">szansa na</br>
 <font color="white">Mnożnik kryt. <font color="yellow">mnoznikCrit</br>
 <font color="white">Blok <font color="yellow">szansa na</br>
 </div>
-
 
 <div class="a">
 <b><font color="orange" size="6	">Statystyki przeciwnika</b></font></br></br>
@@ -166,13 +155,25 @@ Czy chesz się zmierzyć z przeciwnikiem <font color="yellow">&enemyUsername<fon
 
 <img src="graphics/postac.jpg">
 
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="script.js"></script>
+<Script>
+nick = getNick();
+var stat = JSON.parse(getStat(nick));
+
+document.getElementById("class").innerHTML = stat.ChampionClass;
+document.getElementById("fights").innerHTML = stat.fights;
+document.getElementById("dmgStat").innerHTML = stat.dmgStat;
+document.getElementById("stamina").innerHTML = stat.stamina;
+document.getElementById("lvl").innerHTML = stat.lvl;
+document.getElementById("dmgStatName").innerHTML = whichClass(stat);
+</script>
+
+</body>
 <?php
 if ($fights[0] < 15)
-echo "<div class='c'></br><input type='submit' value='Atak!' name='atak'></div></br>";
+echo "<div class='c'></br><input type='submit' value='Atak!' name='atak' onclick='atakuj();'></div></br>";
 else echo "<div class='c'>nie masz już energii</div></br>";
-?>
-
-<?php	
 }
 else header("Location: login.php");
 ?>

@@ -115,7 +115,6 @@ div {
 <input type="submit" value="Zaloguj" name="loguj">
 <center></font><font size="4" color="white">Nie masz konta? <a href="register.php">Zarejestruj się</a>
 
-
 </form>
 
 </body>
@@ -125,22 +124,19 @@ require 'connectToDatabase.php';
 require 'filtruj.php';
 if (isset($_POST['loguj']))
 {
-   $login = filtruj($_POST['login']);
-   $haslo = filtruj($_POST['haslo']);
-   $ip = $_SERVER['REMOTE_ADDR'];
-   $data = date('Y-m-d H:i:s');
-   // sprawdzamy czy login i hasło są dobre
-   $rekordy = mysqli_query($i, "SELECT nickname, password FROM users WHERE nickname = '".$login."' AND password = '".hash('sha256', $haslo)."'");
-   if (mysqli_num_rows($rekordy) != 0){
-      mysqli_query($i, "UPDATE users SET loginTime='".$data."', ip='".$ip."' WHERE nickname='".$login."'");
-	  session_start(); 
-      $_SESSION['zalogowany'] = true;
-      $_SESSION['login'] = $login;
-	  //zalogowany
-	  header("Location: index.php"); 
- 
-   }
-   else echo "</br>Wpisano złe dane";
+	$login = filtruj($_POST['login']);
+	$haslo = filtruj($_POST['haslo']);
+	$ip = $_SERVER['REMOTE_ADDR'];
+	$data = date('Y-m-d H:i:s');
+	// sprawdzamy czy login i hasło są dobre
+	$rekordy = mysqli_query($i, "SELECT nickname, password FROM users WHERE nickname = '".$login."' AND password = '".hash('sha256', $haslo)."'");
+	if (mysqli_num_rows($rekordy) != 0){
+		mysqli_query($i, "UPDATE users SET loginTime='".date('Y-m-d H:i:s')."', ip='".$_SERVER['REMOTE_ADDR']."' WHERE nickname='".$login."'");
+		session_start(); 
+		$_SESSION['zalogowany'] = true;
+		$_SESSION['login'] = $login;
+		//zalogowany
+		header("Location: index.php"); 
+	} else echo "</br>Wpisano złe dane";
 }
-
 ?>

@@ -11,7 +11,6 @@ if (isset($_POST['register']))
    $email = filtruj($_POST['email']);
    $championClass = filtruj($_POST['championClass']);
    $verifyText = hash('sha256', rand(0, 5000));
-   // sprawdzamy czy login nie jest już w bazie
    
    if ($championClass == "Archer" || $championClass == "Assasin" || $championClass == "Dark mage" || $championClass == "Mage" || 
    $championClass == "Palladin" || $championClass == "Warrior")
@@ -32,12 +31,8 @@ if (isset($_POST['register']))
 								{
 									if(filter_var($email, FILTER_VALIDATE_EMAIL))
 									{
-									mysqli_query($i, "INSERT INTO users (nickname, email, password, server, gold, realCash, championClass, expa, gender, verifyText, isVerified, registerTime)
-									VALUE( '".$login."', '".$email."', '".hash('sha256', $haslo1)."', 'W1', 0, 10, '".$championClass."', 0, 0,'".$verifyText."', 0, '".date('Y-m-d H:i:s')."' )");
-									
-									mysqli_query($i, "INSERT INTO player (nickname, avatar, lvl, dmgStat, playerStamina, playerSpeed, playerDexterity, playerLuck)
-									VALUE( '".$login."', 'graphics/\avatar\/null.png', 1, 10, 10, 10, 10, 10 )");
-									
+									mysqli_query($i, "INSERT INTO users (nickname, email, password, server, gold, realCash, championClass, expa, gender, verifyText, isVerified, registerTime, loginTime, ip, avatar, lvl, dmgStat, stamina, speed, dexterity, luck, fights, troph)     
+													  VALUE( '".$login."', '".$email."', '".hash('sha256', $haslo1)."', 'W1', 0, 10, '".$championClass."', 0, 0,'".$verifyText."', 0, '".date('Y-m-d H:i:s')."', '".date('Y-m-d H:i:s')."', '".$_SERVER['REMOTE_ADDR']."', 'graphics/\avatar\/null.png', 1, 10, 10, 10, 10, 10, 0, 0 )");
 									echo "Konto zostało utworzone!";
 									sendVerifyMail($email, $verifyText, $login);
 									header("Location: login.php"); 
@@ -63,108 +58,8 @@ if (isset($_POST['register']))
 ?>
 <head>
 
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<Script>
-
-setInterval(lookForNickChange, 200);
-
-function lookForNickChange()
-{
-		newNick = document.getElementById("nickName").value
-		var nick;
-    if (newNick != nick) {
-        nick = newNick;
-        isLoginAvaible(newNick);
-    }
-}
-
-function isLoginAvaible(login){
-	link = 'isLoginUsed.php?name=' + login; 
-	var data;
-	jQuery.ajax({
-        url: link,
-        type: 'GET',
-        dataType: 'text',
-        success:function(data)
-        {
-			if(data == 1) {
-				document.getElementById("nickName").setAttribute("style", "background-color: red;");
-			} else { 
-				document.getElementById("nickName").setAttribute("style", "background-color: green;");
-			}	
-        } 
-     });
-	 
-	
-}
-
-function chooseClass(klasa) {
-	document.getElementById("championClass").setAttribute("value", klasa);
-	
-	if (klasa == 'Assasin'){
-	document.getElementById("1").setAttribute("style","border-color: red");
-	
-	document.getElementById("2").setAttribute("style","border-color: #1967e5");
-	document.getElementById("3").setAttribute("style","border-color: #1967e5");
-	document.getElementById("4").setAttribute("style","border-color: #1967e5");
-	document.getElementById("5").setAttribute("style","border-color: #1967e5");
-	document.getElementById("6").setAttribute("style","border-color: #1967e5");
-	}
-	if (klasa == 'Dark mage') {
-	document.getElementById("2").setAttribute("style","border-color: red");
-	
-	document.getElementById("1").setAttribute("style","border-color: #1967e5");
-	document.getElementById("3").setAttribute("style","border-color: #1967e5");
-	document.getElementById("4").setAttribute("style","border-color: #1967e5");
-	document.getElementById("5").setAttribute("style","border-color: #1967e5");
-	document.getElementById("6").setAttribute("style","border-color: #1967e5");
-	}
-	if (klasa == 'Mage') {
-	document.getElementById("3").setAttribute("style","border-color: red");
-	
-	document.getElementById("2").setAttribute("style","border-color: #1967e5");
-	document.getElementById("1").setAttribute("style","border-color: #1967e5");
-	document.getElementById("4").setAttribute("style","border-color: #1967e5");
-	document.getElementById("5").setAttribute("style","border-color: #1967e5");
-	document.getElementById("6").setAttribute("style","border-color: #1967e5");
-	}
-	if (klasa == 'Palladin') {
-	document.getElementById("4").setAttribute("style","border-color: red");
-	
-	document.getElementById("2").setAttribute("style","border-color: #1967e5");
-	document.getElementById("3").setAttribute("style","border-color: #1967e5");
-	document.getElementById("1").setAttribute("style","border-color: #1967e5");
-	document.getElementById("5").setAttribute("style","border-color: #1967e5");
-	document.getElementById("6").setAttribute("style","border-color: #1967e5");
-	}
-	if (klasa == 'Archer') {
-	document.getElementById("5").setAttribute("style","border-color: red");
-	
-	document.getElementById("2").setAttribute("style","border-color: #1967e5");
-	document.getElementById("3").setAttribute("style","border-color: #1967e5");
-	document.getElementById("4").setAttribute("style","border-color: #1967e5");
-	document.getElementById("1").setAttribute("style","border-color: #1967e5");
-	document.getElementById("6").setAttribute("style","border-color: #1967e5");
-	}
-	if (klasa == 'Warrior') {
-	document.getElementById("6").setAttribute("style","border-color: red");
-	
-	document.getElementById("2").setAttribute("style","border-color: #1967e5");
-	document.getElementById("3").setAttribute("style","border-color: #1967e5");
-	document.getElementById("4").setAttribute("style","border-color: #1967e5");
-	document.getElementById("5").setAttribute("style","border-color: #1967e5");
-	document.getElementById("1").setAttribute("style","border-color: #1967e5");
-	}
-}
-
-</script>
-
 </head>
-
-
 <body>
-
 <style>
 h1 {
     text-shadow: 0px 0px 20px black;
@@ -273,7 +168,6 @@ Hasło</br><input type="Password" id="password" name="password"></br>
 Powtórz hasło</br><input type="Password" id="marek" name="marek"></br> 
 Klasa postaci</br>
 
-
 <button type="button" onClick="chooseClass('Assasin');" class="button" id='1'>Zabójca</button>
 <button type="button" onClick="chooseClass('Dark mage');" class="button" id='2'>Ciemny mag</button>
 <button type="button" onClick="chooseClass('Mage');" class="button" id='3'>Mag</button>
@@ -281,13 +175,19 @@ Klasa postaci</br>
 <button type="button" onClick="chooseClass('Archer');" class="button" id='5'>Strzelec</button>
 <button type="button" onClick="chooseClass('Warrior'); " class="button"id='6'>Wojownik</button>
 
-
 </br>
 <input type="hidden" name="championClass" id="championClass" value="Assasin">
 <input type="submit" value="Zarejestruj" name="register"/>
 </h1>
 </font><font color="white" size="5">Masz już konto? <a href="login.php">Zaloguj</a>
 </form>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="script.js"></script>
+<Script>
+	setInterval(lookForNickChange, 200);
+
+</script>
 
 </body>
 

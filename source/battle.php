@@ -42,6 +42,15 @@ if (isset($_SESSION['login'])){
 
 	$enemy = filtruj($_GET['enemy']);
 	
+	$loguj="select nickname from users where nickname='$enemy'"; 
+			$rekordy = mysqli_query($i, $loguj);
+			if(mysqli_num_rows($rekordy)==0)
+				$isLoginUsed = 0;
+			else $isLoginUsed = 1;
+		if ($isLoginUsed == 0)
+			echo "przeciwnik o takim nicku nie istnieje";
+		else {
+	
 	$quer = "select dmgStat from player where nickname='$enemy'";
 	$enemydmgMYSQL = mysqli_query($i, $quer);
 	$enemydmg = mysqli_fetch_array($enemydmgMYSQL);
@@ -89,7 +98,7 @@ if (isset($_SESSION['login'])){
 			//	echo( "Przeciwnik zadał " .$enemyCritDmg. " dmg</br>");
 			//     }
 			//else {
-				$stamina[0]  -= $dmg[0] ;
+				$hp -= $enemydmg[0] ;
 				echo( "Przeciwnik zadał " .$enemydmg[0]. " dmg</br>");
 			//     }
 			$i = 0;
@@ -104,6 +113,7 @@ if (isset($_SESSION['login'])){
 			$win = 0;
 		}
 	};
+}
 }
 else header("Location: login.php");
 ?>
