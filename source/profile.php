@@ -12,49 +12,9 @@ if (isset($_SESSION['login'])){
 		$loguj="select nickname from users where nickname='$login'"; 
 			$rekordy = mysqli_query($i, $loguj);
 			if(mysqli_num_rows($rekordy)==0)
-				$isLoginUsed = 0;
-			else $isLoginUsed = 1;
-		if ($isLoginUsed == 0)
-			header("Location: profile.php");
+				header("Location: profile.php");
 	} 
-	
 require "calculateStats.php";
-
-if($login == $_SESSION['login'])
-	if(isset($_POST['plus'])) {
-		$stat = filtruj($_POST['plus']);
-		if ($stat == "inteligence") {
-			if ($gold[0] >= "10"){
-				mysqli_query($i, "UPDATE users SET dmgStat= dmgStat +1 WHERE nickname='$login'");
-				mysqli_query($i, "UPDATE users SET gold= gold -10 WHERE nickname='$login'");
-			}
-		}
-		if ($stat == "stamina") {
-			if ($gold[0] >= "10"){
-				mysqli_query($i, "UPDATE users SET stamina= stamina +1 WHERE nickname='$login'");
-				mysqli_query($i, "UPDATE users SET gold= gold -10 WHERE nickname='$login'");
-			}
-		} 
-		if ($stat == "luck") {
-			if ($gold[0] >= "10"){
-				mysqli_query($i, "UPDATE users SET luck= luck +1 WHERE nickname='$login'");
-				mysqli_query($i, "UPDATE users SET gold= gold -10 WHERE nickname='$login'");
-			}
-		}
-		if ($stat == "speed") {
-			if ($gold[0] >= "10"){
-				mysqli_query($i, "UPDATE users SET speed= speed +1 WHERE nickname='$login'");
-				mysqli_query($i, "UPDATE users SET gold= gold -10 WHERE nickname='$login'");
-			}
-		}
-		if ($stat == "dexterity") {
-			if ($gold[0] >= "10"){
-				mysqli_query($i, "UPDATE users SET dexterity= dexterity +1 WHERE nickname='$login'");
-				mysqli_query($i, "UPDATE users SET gold= gold -10 WHERE nickname='$login'");
-			}
-		}
-		header("Location: profile.php"); 
-	}
 }
 else header("Location: login.php");
 ?>
@@ -166,6 +126,11 @@ input[type=submit]:hover {
 
 </head>
 <body>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="script.js"></script>
+
+
 <font style="font-family: Font" color="white">
 <h1><p>
 <font style="font-family: Font" color="white"><a href="logout.php"><p class="date">Wyloguj</a></br>
@@ -183,23 +148,21 @@ echo " <center>Nick: <span id='nick'>$login</span> </center> </br>";
 
 <h2>
 <?php
-if($login == $_SESSION['login'])
-	echo "
-<form method='POST' action='profile.php'>
-<button class='button' type='submit' value='inteligence' name='plus'>+</button>
+if($login == $_SESSION['login']) {
+?>
 
-<form method='POST' action='profile.php'>
-<button class='button' type='submit' value='stamina' name='plus'>+</button>
+<button class='button' type='submit' value='inteligence' onclick="setStat('inteligence');">+</button>
 
-<form method='POST' action='profile.php'>
-<button class='button' type='submit' value='luck' name='plus'>+</button>
+<button class='button' type='submit' value='stamina' onclick="setStat('stamina');">+</button>
 
-<form method='POST' action='profile.php'>
-<button class='button' type='submit' value='speed' name='plus'>+</button>
+<button class='button' type='submit' value='luck' onclick="setStat('luck');">+</button>
 
-<form method='POST' action='profile.php'>
-<button class='button' type='submit' value='dexterity' name='plus'>+</button>
-";
+<button class='button' type='submit' value='speed' onclick="setStat('speed');">+</button>
+
+<button class='button' type='submit' value='dexterity' onclick="setStat('dexterity');">+</button>
+
+<?php 
+} 
 ?>
 
 <center><font size="7" color="white">Poziom <span id='lvl'></span> <font size="5"></br></br></br></h1>
@@ -223,22 +186,25 @@ if($login == $_SESSION['login'])
 <font color="silver">Punkty bloku <font color="white"><?php echo $stamina[0] ?> 
 <font color="silver"></b>Szansa na blok <font color="white"><?php echo $stamina[0] / ($lvl[0]*2) ?>%</br>
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<script src="script.js"></script>
+
 <Script>
 	nick = getNick();
 	if(document.getElementById("nick"))
 		nick = document.getElementById("nick").innerHTML;
-	var stat = JSON.parse(getStat(nick));
+	showStat();
+	
+	function showStat() {
+		var stat = JSON.parse(getStat(nick));
 
-	document.getElementById("dmgStat").innerHTML = stat.dmgStat;
-	document.getElementById("stamina").innerHTML = stat.stamina;
-	document.getElementById("lvl").innerHTML = stat.lvl;
-	document.getElementById("server").innerHTML = stat.server;
-	document.getElementById("realCash").innerHTML =stat.realCash;
-	document.getElementById("gold").innerHTML = stat.gold;
-	document.getElementById("luck").innerHTML = stat.luck;
-	document.getElementById("speed").innerHTML = stat.speed;
-	document.getElementById("dmgStatName").innerHTML = whichClass(stat);
+		document.getElementById("dmgStat").innerHTML = stat.dmgStat;
+		document.getElementById("stamina").innerHTML = stat.stamina;
+		document.getElementById("lvl").innerHTML = stat.lvl;
+		document.getElementById("server").innerHTML = stat.server;
+		document.getElementById("realCash").innerHTML =stat.realCash;
+		document.getElementById("gold").innerHTML = stat.gold;
+		document.getElementById("luck").innerHTML = stat.luck;
+		document.getElementById("speed").innerHTML = stat.speed;
+		document.getElementById("dmgStatName").innerHTML = whichClass(stat);	
+	}	
 </script>
 </body>

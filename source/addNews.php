@@ -4,7 +4,6 @@ tytuł: <input type="text" name="tytul">
 <br/>treść <textarea name="tresc" rows="10" cols="50"></textarea>
 <br/><input type="submit" value="Dodaj"></form>
 <?php
-
 session_start();
 
 require("connectToDatabase.php");

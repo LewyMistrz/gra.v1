@@ -59,7 +59,6 @@ a:active {
 <center><a href="login.php"><font style="font-family: Font">Logowanie</a></font></b>
 <center><a href="register.php"><font style="font-family: Font">Rejestracja</a></br>
 
-
 <?php
 }
 else {

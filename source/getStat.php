@@ -3,9 +3,18 @@ if (isset($_POST['nick'])){
 	require "connectToDatabase.php";
 	require "filtruj.php";
 	$login = filtruj($_POST['nick']);
-	$STATquer="select dmgStat, stamina, lvl, server, realCash, gold, luck, speed, ChampionClass, fights from users where nickname='".$login."'";
+	$STATquer="select server, gold, realCash, ChampionClass, expa, lvl, dmgStat, stamina, speed, dexterity, luck, fights, troph from users where nickname='".$login."'";
 	$statMYSQL= mysqli_query($i, $STATquer);
 	$state = mysqli_fetch_array($statMYSQL);
+	
+	$WEAPONquer="select id from eq where username='$login' AND isEquiped='1' AND type='weapon'";
+	$weaponMYSQL= mysqli_query($i, $WEAPONquer);
+	$weapon = mysqli_fetch_array($weaponMYSQL);
+	
+	
+	
+	
+	
 	echo json_encode($state);
 } else {
 	if ($_POST["stat"] == "nick") {

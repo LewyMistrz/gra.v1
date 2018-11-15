@@ -140,3 +140,22 @@ function chooseClass(klasa) {
 	document.getElementById("1").setAttribute("style","border-color: #1967e5");
 	}
 }
+
+function setStat(stat) {
+	link = 'setStat.php'; 
+	var data;
+	jQuery.ajax({
+        url: link,
+        type: 'POST',
+		data: ({ plus: stat }),
+        dataType: 'text',
+        success:function(data)
+        {
+			if(data == "dodano punkty") 
+				showStat();
+        } 
+     });
+	
+	
+}
+

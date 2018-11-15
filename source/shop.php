@@ -9,4 +9,4 @@ if (isset($_SESSION['login'])){
 else header("Location: login.php");
 ?>
 
-<font color="black"></b>item <font color="white"><?php echo $weapon[0]?></br>
+<font color="black"></b>item <?php echo $weapon[0]?></br>
