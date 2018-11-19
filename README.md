@@ -6,6 +6,6 @@ autorzy: Maciej L. Kacper G.
 
 baza danych: sql database
 
-backend: php (może później coś lepszego) 
+backend: php
 
-frontend: nie wybrano technologii
+frontend: html, css, javascript
