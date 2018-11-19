@@ -9,3 +9,5 @@ baza danych: sql database
 backend: php
 
 frontend: html, css, javascript
+
+beta strony: http://grav1.cba.pl/
