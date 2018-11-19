@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 30 Paź 2018, 19:08
+-- Czas generowania: 19 Lis 2018, 15:46
 -- Wersja serwera: 10.1.31-MariaDB
 -- Wersja PHP: 7.2.4
 
@@ -30,11 +30,11 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `eq` (
   `id` int(11) NOT NULL,
-  `slot` int(11) NOT NULL,
   `username` text COLLATE utf8_bin NOT NULL,
   `name` text COLLATE utf8_bin NOT NULL,
   `isEquiped` int(11) NOT NULL,
   `type` text COLLATE utf8_bin NOT NULL,
+  `avatar` text COLLATE utf8_bin NOT NULL,
   `weaponDmg` int(11) NOT NULL,
   `armor` int(11) NOT NULL,
   `magicResist` int(11) NOT NULL,
@@ -53,6 +53,13 @@ CREATE TABLE `eq` (
   `Warrior` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
+--
+-- Zrzut danych tabeli `eq`
+--
+
+INSERT INTO `eq` (`id`, `username`, `name`, `isEquiped`, `type`, `avatar`, `weaponDmg`, `armor`, `magicResist`, `block`, `critMultipler`, `intelligence`, `strength`, `dexterity`, `stamina`, `luck`, `Archer`, `Assasin`, `DarkMage`, `Mage`, `Palladin`, `Warrior`) VALUES
+(1, 'LewyMistrz', 'Dildo pała', 1, 'weapon', 'graphics/avatar/dildoPala.png', 69, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0);
+
 -- --------------------------------------------------------
 
 --
@@ -60,37 +67,20 @@ CREATE TABLE `eq` (
 --
 
 CREATE TABLE `news` (
+  `id` int(11) NOT NULL,
   `title` text COLLATE utf8_bin NOT NULL,
   `text` text COLLATE utf8_bin NOT NULL,
   `author` text COLLATE utf8_bin NOT NULL,
   `data` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
--- --------------------------------------------------------
-
 --
--- Struktura tabeli dla tabeli `player`
+-- Zrzut danych tabeli `news`
 --
 
-CREATE TABLE `player` (
-  `nickname` varchar(15) COLLATE utf8_bin NOT NULL,
-  `avatar` text COLLATE utf8_bin NOT NULL,
-  `lvl` int(11) NOT NULL,
-  `dmgStat` int(11) NOT NULL,
-  `stamina` int(11) NOT NULL,
-  `speed` int(11) NOT NULL,
-  `dexterity` int(11) NOT NULL,
-  `luck` int(11) NOT NULL,
-  `fights` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-
---
--- Zrzut danych tabeli `player`
---
-
-INSERT INTO `player` (`nickname`, `avatar`, `lvl`, `dmgStat`, `stamina`, `speed`, `dexterity`, `luck`, `fights`) VALUES
-('LewyMistrz', 'graphics/avatar/null.png', 1, 10, 10, 10, 10, 10, 0),
-('Mac', 'graphics/avatar/null.png', 1, 10, 10, 10, 10, 10, 0);
+INSERT INTO `news` (`id`, `title`, `text`, `author`, `data`) VALUES
+(1, 'a', 'c', 'b', '2018-10-30'),
+(2, 'chce', 'newsa', 'napisac', '2018-10-30');
 
 -- --------------------------------------------------------
 
@@ -111,6 +101,8 @@ CREATE TABLE `users` (
   `verifyText` text COLLATE utf8_bin NOT NULL,
   `isVerified` tinyint(1) NOT NULL,
   `registerTime` datetime NOT NULL,
+  `loginTime` datetime NOT NULL,
+  `ip` varchar(15) COLLATE utf8_bin NOT NULL,
   `avatar` text COLLATE utf8_bin NOT NULL,
   `lvl` int(11) NOT NULL,
   `dmgStat` int(11) NOT NULL,
@@ -118,16 +110,17 @@ CREATE TABLE `users` (
   `speed` int(11) NOT NULL,
   `dexterity` int(11) NOT NULL,
   `luck` int(11) NOT NULL,
-  `fights` int(11) NOT NULL
+  `fights` int(11) NOT NULL,
+  `troph` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Zrzut danych tabeli `users`
 --
 
-INSERT INTO `users` (`nickname`, `email`, `password`, `server`, `gold`, `realCash`, `ChampionClass`, `expa`, `gender`, `verifyText`, `isVerified`, `registerTime`) VALUES
-('LewyMistrz', 'lewandowskimaciek82@gmail.com', '1306ddb0dbdb2cb13d5f06b39db13f3083372afc81e234f71710dd8df7065d70', 'W1', 0, 10, 'Assasin', 0, 0, 'b44772b12eec5b5e73b363df835f2f14c12f1c740e99145429f12765e7cee0c8', 0, '2018-10-29 08:18:40'),
-('Mac', 'admin@gmail.com', 'ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb', 'W1', 0, 10, 'Assasin', 0, 0, '2858dcd1057d3eae7f7d5f782167e24b61153c01551450a628cee722509f6529', 0, '2018-10-30 16:32:26');
+INSERT INTO `users` (`nickname`, `email`, `password`, `server`, `gold`, `realCash`, `ChampionClass`, `expa`, `gender`, `verifyText`, `isVerified`, `registerTime`, `loginTime`, `ip`, `avatar`, `lvl`, `dmgStat`, `stamina`, `speed`, `dexterity`, `luck`, `fights`, `troph`) VALUES
+('LewyMistrz', 'lewandowskimaciek82@gmail.com', '1306ddb0dbdb2cb13d5f06b39db13f3083372afc81e234f71710dd8df7065d70', 'W1', 5, 10, 'Assasin', 0, 0, '4fdc8d7d404bc07349ffce4cd89e1086a602d2d0333732a7b0c917314035492d', 0, '2018-11-06 15:50:45', '2018-11-19 08:47:57', '::1', 'graphics/avatar/null.png', 1, 16, 12, 12, 12, 12, 0, 0),
+('admin', 'admin@admin.pl', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', 'W1', 0, 123456779, 'Assasin', 0, 0, '59279341ea59fbf34025024596b670b6df2c9f80e71b9ad19aea71ba43b083fc', 0, '2018-11-06 16:19:17', '2018-11-06 16:19:17', '::1', 'graphics/avatar/null.png', 1, 10, 10, 10, 10, 10, 0, 0);
 
 --
 -- Indeksy dla zrzutów tabel
@@ -143,23 +136,13 @@ ALTER TABLE `eq`
 -- Indeksy dla tabeli `news`
 --
 ALTER TABLE `news`
-  ADD PRIMARY KEY (`data`);
-
---
--- Indeksy dla tabeli `player`
---
-ALTER TABLE `player`
-  ADD PRIMARY KEY (`nickname`),
-  ADD KEY `nickname` (`nickname`),
-  ADD KEY `nickname_2` (`nickname`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indeksy dla tabeli `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`nickname`),
-  ADD KEY `nickname` (`nickname`),
-  ADD KEY `nickname_2` (`nickname`);
+  ADD PRIMARY KEY (`nickname`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -169,7 +152,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT dla tabeli `eq`
 --
 ALTER TABLE `eq`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT dla tabeli `news`
+--
+ALTER TABLE `news`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -11,9 +11,7 @@ if (isset($_POST['nick'])){
 	$weaponMYSQL= mysqli_query($i, $WEAPONquer);
 	$weapon = mysqli_fetch_array($weaponMYSQL);
 	
-	
-	
-	
+	$state['weaponid'] = $weapon[0]; 
 	
 	echo json_encode($state);
 } else {

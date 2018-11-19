@@ -155,7 +155,5 @@ function setStat(stat) {
 				showStat();
         } 
      });
-	
-	
 }
 

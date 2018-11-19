@@ -43,77 +43,75 @@ if (isset($_SESSION['login'])){
 	$enemy = filtruj($_GET['enemy']);
 	
 	$loguj="select nickname from users where nickname='$enemy'"; 
-			$rekordy = mysqli_query($i, $loguj);
-			if(mysqli_num_rows($rekordy)==0)
-				$isLoginUsed = 0;
-			else $isLoginUsed = 1;
-		if ($isLoginUsed == 0)
-			echo "przeciwnik o takim nicku nie istnieje";
-		else {
+	$rekordy = mysqli_query($i, $loguj);
+	if(mysqli_num_rows($rekordy)==0)
+		$isLoginUsed = 0;
+	else $isLoginUsed = 1;
+	if ($isLoginUsed == 0)
+		echo "przeciwnik o takim nicku nie istnieje";
+	else {
+		$quer = "select dmgStat from player where nickname='$enemy'";
+		$enemydmgMYSQL = mysqli_query($i, $quer);
+		$enemydmg = mysqli_fetch_array($enemydmgMYSQL);
+		$enemydmg[0] = $enemydmg[0] * rand(75, 125) /100;
 	
-	$quer = "select dmgStat from player where nickname='$enemy'";
-	$enemydmgMYSQL = mysqli_query($i, $quer);
-	$enemydmg = mysqli_fetch_array($enemydmgMYSQL);
-	$enemydmg[0] = $enemydmg[0] * rand(75, 125) /100;
+		$quer = "select lvl from player where nickname='$enemy'";
+		$enemylvlMYSQL = mysqli_query($i, $quer);
+		$enemylvl = mysqli_fetch_array($enemylvlMYSQL);
 	
-	$quer = "select lvl from player where nickname='$enemy'";
-	$enemylvlMYSQL = mysqli_query($i, $quer);
-	$enemylvl = mysqli_fetch_array($enemylvlMYSQL);
+		$quer = "select stamina from player where nickname='$enemy'";
+		$enemystaminaMYSQL = mysqli_query($i, $quer);
+		$enemystamina = mysqli_fetch_array($enemystaminaMYSQL);
+		$enemystamina[0]  = $enemystamina[0]  * $enemylvl[0] *5 ;
 	
-	$quer = "select stamina from player where nickname='$enemy'";
-	$enemystaminaMYSQL = mysqli_query($i, $quer);
-	$enemystamina = mysqli_fetch_array($enemystaminaMYSQL);
-	$enemystamina[0]  = $enemystamina[0]  * $enemylvl[0] *5 ;
+		$i = rand(0, 1);
 	
-	$i = rand(0, 1);
+		$win = 2; 
 	
-	$win = 2; 
-	
-	while ($win > 1) {
-		echo "</br>";
+		while ($win > 1) {
+			echo "</br>";
 		
-		$critDmg = $dmg[0] * 2;
-		$enemyCritDmg = $enemydmg[0] * 2;
+			$critDmg = $dmg[0] * 2;
+			$enemyCritDmg = $enemydmg[0] * 2;
 		
-		$dmg[0] = $dmg[0] * rand(75, 125) /100;
-		$dmg[0] = round( $dmg[0], 2);
-		$enemydmg[0] = $enemydmg[0] * rand(75, 125) /100;	
-		$enemydmg[0] = round( $enemydmg[0], 2);
-		if( $i == 0)
-		{
-			//if ((rand(-100, 0)+$critChance) > 0) {
-			//	$enemystamina[0]  -= $critDmg;
-			//	echo( "Zadałeś " .$critDmg. " dmg</br>");
-			//     }
-			//else {
-				$enemystamina[0]  -= $dmg[0] ;
-				echo( "Zadałeś " .$dmg[0]. " dmg</br>");
-			//     }
-			$i = 1;
-		}	
-		else if ( $i == 1)
-		{
-			//if((rand(-100, 0)+$enemycritChance) > 0) {
-			//	$stamina[0]  -= $enemyCritDmg;
-			//	echo( "Przeciwnik zadał " .$enemyCritDmg. " dmg</br>");
-			//     }
-			//else {
-				$hp -= $enemydmg[0] ;
-				echo( "Przeciwnik zadał " .$enemydmg[0]. " dmg</br>");
-			//     }
-			$i = 0;
-		}	
-		
-		if ($stamina[0] <= 0) {
-			echo "</br>Przegrałeś</br>";
-			$win = 1;
-		}
-		if ($enemystamina[0] <= 0) {
-			echo "</br>Wygrałeś</br>";
-			$win = 0;
-		}
-	};
-}
-}
-else header("Location: login.php");
+			$dmg[0] = $dmg[0] * rand(75, 125) /100;
+			$dmg[0] = round( $dmg[0], 2);
+			$enemydmg[0] = $enemydmg[0] * rand(75, 125) /100;	
+			$enemydmg[0] = round( $enemydmg[0], 2);
+			if( $i == 0)
+				{
+				//if ((rand(-100, 0)+$critChance) > 0) {
+				//	$enemystamina[0]  -= $critDmg;
+				//	echo( "Zadałeś " .$critDmg. " dmg</br>");
+				//     }
+				//else {
+					$enemystamina[0]  -= $dmg[0] ;
+					echo( "Zadałeś " .$dmg[0]. " dmg</br>");
+				//     }
+				$i = 1;
+			}	
+			else if ( $i == 1)
+			{
+				//if((rand(-100, 0)+$enemycritChance) > 0) {
+				//	$stamina[0]  -= $enemyCritDmg;
+				//	echo( "Przeciwnik zadał " .$enemyCritDmg. " dmg</br>");
+				//     }
+				//else {
+					$hp -= $enemydmg[0] ;
+					echo( "Przeciwnik zadał " .$enemydmg[0]. " dmg</br>");
+				//     }
+				$i = 0;
+			}	
+	
+			if ($stamina[0] <= 0) {
+				echo "</br>Przegrałeś</br>";
+				$win = 1;
+			}		
+			if ($enemystamina[0] <= 0) {
+				echo "</br>Wygrałeś</br>";
+				$win = 0;
+			}
+		};
+	}
+} else header("Location: login.php");
 ?>
