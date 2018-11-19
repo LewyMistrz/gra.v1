@@ -70,26 +70,26 @@ if (isset($_SESSION['login'])){
 			$enemydmg = round( $enemydmg, 2);
 			if( $i == 0)
 				{
-				//if ((rand(-100, 0)+$critChance) > 0) {
-				//	$enemystamina[0]  -= $critDmg;
-				//	echo( "Zadałeś " .$critDmg. " dmg</br>");
-				//     }
-				//else {
+				if ((rand(-100, 0)+$stat['critChance']) > 0) {
+					$enemyStat["hp"]  -= $stat['weaponDmg'] * 2;
+					echo( "Zadałeś " .($stat['weaponDmg'] * 2). " dmg</br>");
+				     }
+				else {
 					$enemyStat["hp"]  -= $stat["weaponDmg"];
 					echo( "Zadałeś " .$stat["weaponDmg"]. " dmg</br>");
-				//     }
+				    }
 				$i = 1;
 			}	
 			else if ( $i == 1)
 			{
-				//if((rand(-100, 0)+$enemycritChance) > 0) {
-				//	$stamina[0]  -= $enemyCritDmg;
-				//	echo( "Przeciwnik zadał " .$enemyCritDmg. " dmg</br>");
-				//     }
-				//else {
+				if((rand(-100, 0)+$enemyStat['critChance']) > 0) {
+					$stat['hp'] -= $enemyStat['weaponDmg'] * 2;
+					echo( "Przeciwnik zadał " .($enemyStat['weaponDmg'] * 2). " dmg</br>");
+				     }
+				else {
 				$stat["hp"] -= $enemyStat["weaponDmg"];
 					echo( "Przeciwnik zadał " .$enemyStat["weaponDmg"]. " dmg</br>");
-				//     }
+				     }
 				$i = 0;
 			}	
 	
