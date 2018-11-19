@@ -38,8 +38,11 @@ if (isset($_SESSION['login'])){
 	
 	require "connectToDatabase.php";
 	require "filtruj.php";
-	require "calculateStats.php";
-
+	include "getStat.php";
+	
+	$stat = json_decode(getStat($login), true);
+	$enemyStat = json_decode(getStat("admin"), true);
+	
 	$enemy = filtruj($_GET['enemy']);
 	
 	$loguj="select nickname from users where nickname='$enemy'"; 
@@ -50,20 +53,6 @@ if (isset($_SESSION['login'])){
 	if ($isLoginUsed == 0)
 		echo "przeciwnik o takim nicku nie istnieje";
 	else {
-		$quer = "select dmgStat from player where nickname='$enemy'";
-		$enemydmgMYSQL = mysqli_query($i, $quer);
-		$enemydmg = mysqli_fetch_array($enemydmgMYSQL);
-		$enemydmg[0] = $enemydmg[0] * rand(75, 125) /100;
-	
-		$quer = "select lvl from player where nickname='$enemy'";
-		$enemylvlMYSQL = mysqli_query($i, $quer);
-		$enemylvl = mysqli_fetch_array($enemylvlMYSQL);
-	
-		$quer = "select stamina from player where nickname='$enemy'";
-		$enemystaminaMYSQL = mysqli_query($i, $quer);
-		$enemystamina = mysqli_fetch_array($enemystaminaMYSQL);
-		$enemystamina[0]  = $enemystamina[0]  * $enemylvl[0] *5 ;
-	
 		$i = rand(0, 1);
 	
 		$win = 2; 
@@ -71,13 +60,14 @@ if (isset($_SESSION['login'])){
 		while ($win > 1) {
 			echo "</br>";
 		
-			$critDmg = $dmg[0] * 2;
-			$enemyCritDmg = $enemydmg[0] * 2;
+			$critDmg = $stat["weaponDmg"] * 2;
+			$enemyCritDmg = $enemyStat["weaponDmg"] * 2;
 		
-			$dmg[0] = $dmg[0] * rand(75, 125) /100;
-			$dmg[0] = round( $dmg[0], 2);
-			$enemydmg[0] = $enemydmg[0] * rand(75, 125) /100;	
-			$enemydmg[0] = round( $enemydmg[0], 2);
+			$dmg = $stat["weaponDmg"] * rand(75, 125) /100;
+			$dmg = round( $dmg, 2);
+			
+			$enemydmg = $enemyStat["weaponDmg"] * rand(75, 125) /100;	
+			$enemydmg = round( $enemydmg, 2);
 			if( $i == 0)
 				{
 				//if ((rand(-100, 0)+$critChance) > 0) {
@@ -85,8 +75,8 @@ if (isset($_SESSION['login'])){
 				//	echo( "Zadałeś " .$critDmg. " dmg</br>");
 				//     }
 				//else {
-					$enemystamina[0]  -= $dmg[0] ;
-					echo( "Zadałeś " .$dmg[0]. " dmg</br>");
+					$enemyStat["hp"]  -= $stat["weaponDmg"];
+					echo( "Zadałeś " .$stat["weaponDmg"]. " dmg</br>");
 				//     }
 				$i = 1;
 			}	
@@ -97,17 +87,17 @@ if (isset($_SESSION['login'])){
 				//	echo( "Przeciwnik zadał " .$enemyCritDmg. " dmg</br>");
 				//     }
 				//else {
-					$hp -= $enemydmg[0] ;
-					echo( "Przeciwnik zadał " .$enemydmg[0]. " dmg</br>");
+				$stat["hp"] -= $enemyStat["weaponDmg"];
+					echo( "Przeciwnik zadał " .$enemyStat["weaponDmg"]. " dmg</br>");
 				//     }
 				$i = 0;
 			}	
 	
-			if ($stamina[0] <= 0) {
+			if ($stat["hp"] <= 0) {
 				echo "</br>Przegrałeś</br>";
 				$win = 1;
 			}		
-			if ($enemystamina[0] <= 0) {
+			if ($enemyStat["hp"] <= 0) {
 				echo "</br>Wygrałeś</br>";
 				$win = 0;
 			}

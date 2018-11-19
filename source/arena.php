@@ -4,7 +4,6 @@ if (isset($_SESSION['login'])){
 	$login = $_SESSION['login'];
 require 'connectToDatabase.php';
 require 'filtruj.php';
-require "calculateStats.php";
 ?>
 
 <style>
@@ -137,7 +136,7 @@ Czy chesz się zmierzyć z przeciwnikiem <font color="yellow">&enemyUsername<fon
 <font color="white">Poziom <font color="yellow"> <span id='lvl'> </span> </br>
 <font color="white"> <span id='dmgStatName'> </span> <font color="yellow"><span id='dmgStat'> </span></br>
 <font color="white">HP <font color="yellow"> <span id='stamina'> </span> </br>
-<font color="white">Cios krytyczny <font color="yellow">szansa na</br>
+<font color="white">Cios krytyczny <font color="yellow"><span id='critChance'> </span></br>
 <font color="white">Mnożnik kryt. <font color="yellow">mnoznikCrit</br>
 <font color="white">Blok <font color="yellow">szansa na</br>
 </div>
@@ -167,6 +166,7 @@ document.getElementById("dmgStat").innerHTML = stat.dmgStat;
 document.getElementById("stamina").innerHTML = stat.stamina;
 document.getElementById("lvl").innerHTML = stat.lvl;
 document.getElementById("dmgStatName").innerHTML = whichClass(stat);
+document.getElementById("critChance").innerHTML = stat.critChance;
 </script>
 
 </body>

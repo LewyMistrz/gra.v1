@@ -14,7 +14,6 @@ if (isset($_SESSION['login'])){
 			if(mysqli_num_rows($rekordy)==0)
 				header("Location: profile.php");
 	} 
-require "calculateStats.php";
 }
 else header("Location: login.php");
 ?>
