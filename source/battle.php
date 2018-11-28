@@ -73,10 +73,12 @@ if (isset($_SESSION['login'])){
 				if ((rand(-100, 0)+$stat['critChance']) > 0) {
 					$enemyStat["hp"]  -= $stat['weaponDmg'] * 2;
 					echo( "Zadałeś " .($stat['weaponDmg'] * 2). " dmg</br>");
+					// tutaj animacja jak jebniesz krytem
 				     }
 				else {
 					$enemyStat["hp"]  -= $stat["weaponDmg"];
 					echo( "Zadałeś " .$stat["weaponDmg"]. " dmg</br>");
+					// tutaj animacja jak jebniesz 
 				    }
 				$i = 1;
 			}	
@@ -85,10 +87,12 @@ if (isset($_SESSION['login'])){
 				if((rand(-100, 0)+$enemyStat['critChance']) > 0) {
 					$stat['hp'] -= $enemyStat['weaponDmg'] * 2;
 					echo( "Przeciwnik zadał " .($enemyStat['weaponDmg'] * 2). " dmg</br>");
+					// tutaj animacja jak przeciwnik cie jebnie krytem
 				     }
 				else {
 				$stat["hp"] -= $enemyStat["weaponDmg"];
 					echo( "Przeciwnik zadał " .$enemyStat["weaponDmg"]. " dmg</br>");
+					// tutaj jak cie jebnie bez kryta
 				     }
 				$i = 0;
 			}	
