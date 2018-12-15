@@ -4,7 +4,7 @@ SFGAME tylko lepsze.
 
 autorzy: Maciej L. Kacper G.
 
-baza danych: sql database
+baza danych: mysql database
 
 backend: php
 
