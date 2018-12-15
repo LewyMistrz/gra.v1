@@ -128,6 +128,9 @@ input[type=submit]:hover {
 <h1><p>
 <font style="font-family: Font" color="white"><a href="logout.php"><p class="date">Wyloguj</a></br>
 </p>
+
+<img src="\graphics\to do.png" alt="Smiley face" align="right">
+
 <?php
 if($login != $_SESSION['login'])
 echo " <center>Nick: <span id='nick'>$login</span> </center> </br>";	
