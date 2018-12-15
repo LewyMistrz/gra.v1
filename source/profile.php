@@ -35,12 +35,6 @@ background-repeat: no-repeat;
 background-attachment: fixed;
 }
 
-$username = $_SESSION['login'];
-$quer="select gold from users where nickname='$username'";
-$goldMYSQL= mysqli_query($i, $quer);
-$gold = mysql_fetch_array($goldMYSQL);
-
-
 a:link {
     color: white; 	
     background-color: transparent; 
@@ -126,7 +120,7 @@ input[type=submit]:hover {
 </head>
 <body>
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="script.js"></script>
 
 
@@ -167,24 +161,23 @@ if($login == $_SESSION['login']) {
 <center><font size="7" color="white">Poziom <span id='lvl'></span> <font size="5"></br></br></br></h1>
 
 <center><font color="silver"> <span id='dmgStatName'> </span> <font color="white"> <span id='dmgStat'></span>
-<font color="silver"></b> Obrażenia <font color="white"><?php echo $dmg[0] * 0.75?> - <?php echo $dmg[0] * 1.25 ?></br>
+<font color="silver"></b> Obrażenia <font color="white"><span id='weaponDmg'> </span></br>
 
-<font color="silver">Wytrzymałość <font color="white"> <span id='stamina'> </span>
-<font color="silver"></b>Punkty życia <font color="white"><?php echo $hp ?></br>
+<font color="silver">Wytrzymałość <font color="white"> <span id='stamina'></span>
+<font color="silver"></b>Punkty życia <font color="white"><span id='hp'></span></br>
 
 <font color="silver">Szczęście <font color="white"><span id='luck'></span>
-<font color="silver"></b>Trafienie krytyczne <font color="white"><?php echo $stamina[0]*2 / $lvl[0] ?>%</br>
+<font color="silver"></b>Trafienie krytyczne <font color="white"><span id='critChance'></span>%</br>
 
 <font color="silver">Szybkość <font color="white"><span id='speed'></span>
-<font color="silver"></b>Szansa na unik <font color="white"><?php echo $speed[0]*5 / $lvl[0]/3 ?>%</br>
+<font color="silver"></b>Szansa na unik <font color="white"><span id='dodgeChance'></span>%</br>
 
-<font color="silver">Multiplikator <font color="white"><?php echo $dmg[0]?> 
-<font color="silver"></b>Mnożnik traf. kryt. <font color="white"><?php echo 1.5 + $dmg[0]/100 / $lvl[0] ?>x</br>
+<font color="silver">Multiplikator <font color="white">NIE ZROBIONO
+<font color="silver"></b>Mnożnik traf. kryt. <font color="white">NIE ZROBIONO x</br>
 <notice - użyłem $playerSpeed dla sprawdzenia wyniku, zmienić na $critMultipler>
 
-<font color="silver">Punkty bloku <font color="white"><?php echo $stamina[0] ?> 
-<font color="silver"></b>Szansa na blok <font color="white"><?php echo $stamina[0] / ($lvl[0]*2) ?>%</br>
-
+<font color="silver">Punkty bloku <font color="white"><span id='block'></span>
+<font color="silver"></b>Szansa na blok <font color="white"><span id='blockChance'></span>%</br>
 
 <Script>
 	nick = getNick();
@@ -194,16 +187,20 @@ if($login == $_SESSION['login']) {
 	
 	function showStat() {
 		var stat = JSON.parse(getStat(nick));
-
+		
+		document.getElementById("dmgStatName").innerHTML = whichClass(stat);	
 		document.getElementById("dmgStat").innerHTML = stat.dmgStat;
+		document.getElementById("weaponDmg").innerHTML = stat.weaponDmg;
 		document.getElementById("stamina").innerHTML = stat.stamina;
+		document.getElementById("luck").innerHTML = stat.luck;
+		document.getElementById("speed").innerHTML = stat.speed;
 		document.getElementById("lvl").innerHTML = stat.lvl;
 		document.getElementById("server").innerHTML = stat.server;
 		document.getElementById("realCash").innerHTML =stat.realCash;
 		document.getElementById("gold").innerHTML = stat.gold;
-		document.getElementById("luck").innerHTML = stat.luck;
-		document.getElementById("speed").innerHTML = stat.speed;
-		document.getElementById("dmgStatName").innerHTML = whichClass(stat);	
+		document.getElementById("hp").innerHTML = stat.stamina * stat.lvl;
+		document.getElementById("critChance").innerHTML = stat.luck * stat.lvl;
+		document.getElementById("dodgeChance").innerHTML = stat.speed * stat.lvl;
 	}	
 </script>
 </body>

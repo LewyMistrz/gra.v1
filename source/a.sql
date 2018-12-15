@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 19 Lis 2018, 15:46
+-- Czas generowania: 15 Gru 2018, 16:12
 -- Wersja serwera: 10.1.31-MariaDB
 -- Wersja PHP: 7.2.4
 
@@ -35,16 +35,16 @@ CREATE TABLE `eq` (
   `isEquiped` int(11) NOT NULL,
   `type` text COLLATE utf8_bin NOT NULL,
   `avatar` text COLLATE utf8_bin NOT NULL,
-  `weaponDmg` int(11) NOT NULL,
-  `armor` int(11) NOT NULL,
-  `magicResist` int(11) NOT NULL,
-  `block` int(11) NOT NULL,
-  `critMultipler` int(11) NOT NULL,
+  `itemDmg` int(11) NOT NULL,
+  `itemArmor` int(11) NOT NULL,
+  `itemMagicResist` int(11) NOT NULL,
+  `itemBlock` int(11) NOT NULL,
+  `itemCritMultiplier` int(11) NOT NULL,
   `intelligence` int(11) NOT NULL,
-  `strength` int(11) NOT NULL,
-  `dexterity` int(11) NOT NULL,
-  `stamina` int(11) NOT NULL,
-  `luck` int(11) NOT NULL,
+  `itemStrength` int(11) NOT NULL,
+  `itemDexterity` int(11) NOT NULL,
+  `itemStamina` int(11) NOT NULL,
+  `itemLuck` int(11) NOT NULL,
   `Archer` int(11) NOT NULL,
   `Assasin` int(11) NOT NULL,
   `DarkMage` int(11) NOT NULL,
@@ -57,8 +57,12 @@ CREATE TABLE `eq` (
 -- Zrzut danych tabeli `eq`
 --
 
-INSERT INTO `eq` (`id`, `username`, `name`, `isEquiped`, `type`, `avatar`, `weaponDmg`, `armor`, `magicResist`, `block`, `critMultipler`, `intelligence`, `strength`, `dexterity`, `stamina`, `luck`, `Archer`, `Assasin`, `DarkMage`, `Mage`, `Palladin`, `Warrior`) VALUES
-(1, 'LewyMistrz', 'Dildo pała', 1, 'weapon', 'graphics/avatar/dildoPala.png', 69, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0);
+INSERT INTO `eq` (`id`, `username`, `name`, `isEquiped`, `type`, `avatar`, `itemDmg`, `itemArmor`, `itemMagicResist`, `itemBlock`, `itemCritMultiplier`, `intelligence`, `itemStrength`, `itemDexterity`, `itemStamina`, `itemLuck`, `Archer`, `Assasin`, `DarkMage`, `Mage`, `Palladin`, `Warrior`) VALUES
+(1, 'LewyMistrz', 'Dildo pała', 1, 'weapon', 'graphics/avatar/dildoPala.png', 69, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0),
+(2, 'admin', 'Dildo pała', 1, 'weapon', 'graphics/avatar/dildoPala.png', 69, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0),
+(3, 'LewyMistrz', '7-milowe buty', 1, 'buty', '\\graphics\\items\\7-milowe buty.png', 0, 10, 10, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1),
+(4, 'LewyMistrz', 'dwupalcowy kolczasty kastet', 1, 'pierscien', '\\graphics\\items\\dwupalcowy kolczasty kastet.png', 0, 0, 0, 0, 5, 0, 2, 0, 0, 2, 0, 1, 0, 0, 0, 0),
+(5, 'LewyMistrz', 'dziewicza tarcza', 1, 'tarcza', '\\graphics\\items\\dziewicza tarcza.png', 0, 25, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -119,8 +123,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`nickname`, `email`, `password`, `server`, `gold`, `realCash`, `ChampionClass`, `expa`, `gender`, `verifyText`, `isVerified`, `registerTime`, `loginTime`, `ip`, `avatar`, `lvl`, `dmgStat`, `stamina`, `speed`, `dexterity`, `luck`, `fights`, `troph`) VALUES
-('LewyMistrz', 'lewandowskimaciek82@gmail.com', '1306ddb0dbdb2cb13d5f06b39db13f3083372afc81e234f71710dd8df7065d70', 'W1', 5, 10, 'Assasin', 0, 0, '4fdc8d7d404bc07349ffce4cd89e1086a602d2d0333732a7b0c917314035492d', 0, '2018-11-06 15:50:45', '2018-11-19 08:47:57', '::1', 'graphics/avatar/null.png', 1, 16, 12, 12, 12, 12, 0, 0),
-('admin', 'admin@admin.pl', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', 'W1', 0, 123456779, 'Assasin', 0, 0, '59279341ea59fbf34025024596b670b6df2c9f80e71b9ad19aea71ba43b083fc', 0, '2018-11-06 16:19:17', '2018-11-06 16:19:17', '::1', 'graphics/avatar/null.png', 1, 10, 10, 10, 10, 10, 0, 0);
+('LewyMistrz', 'lewandowskimaciek82@gmail.com', '1306ddb0dbdb2cb13d5f06b39db13f3083372afc81e234f71710dd8df7065d70', 'W1', 5, 10, 'Assasin', 0, 0, '4fdc8d7d404bc07349ffce4cd89e1086a602d2d0333732a7b0c917314035492d', 0, '2018-11-06 15:50:45', '2018-12-15 14:29:58', '::1', 'graphics/avatar/null.png', 1, 16, 122, 12, 12, 12, 0, 0),
+('admin', 'admin@admin.pl', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', 'W1', 0, 123456779, 'Assasin', 0, 0, '59279341ea59fbf34025024596b670b6df2c9f80e71b9ad19aea71ba43b083fc', 0, '2018-11-06 16:19:17', '2018-11-06 16:19:17', '::1', 'graphics/avatar/null.png', 1, 10, 132, 10, 10, 10, 0, 0);
 
 --
 -- Indeksy dla zrzutów tabel
@@ -152,7 +156,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT dla tabeli `eq`
 --
 ALTER TABLE `eq`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT dla tabeli `news`
