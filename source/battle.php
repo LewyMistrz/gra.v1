@@ -33,17 +33,16 @@ p.main {
 <?php
 session_start();
 if (isset($_SESSION['login'])){
-	
+	if (isset($_POST['enemy'])) {
 	$login = $_SESSION['login'];
 	
 	require "connectToDatabase.php";
 	require "filtruj.php";
 	include "getStat.php";
 	
-	$stat = json_decode(getStat($login), true);
-	$enemyStat = json_decode(getStat("admin"), true);
-	
-	$enemy = filtruj($_GET['enemy']);
+	$enemy = filtruj($_POST['enemy']);
+	$stat = getStat($login);
+	$enemyStat = getStat($enemy);
 	
 	$loguj="select nickname from users where nickname='$enemy'"; 
 	$rekordy = mysqli_query($i, $loguj);
@@ -53,6 +52,8 @@ if (isset($_SESSION['login'])){
 	if ($isLoginUsed == 0)
 		echo "przeciwnik o takim nicku nie istnieje";
 	else {
+		mysqli_query($i, "UPDATE users SET fights= fights +1 WHERE nickname='$login'");
+	
 		$i = rand(0, 1);
 	
 		$win = 2; 
@@ -60,24 +61,24 @@ if (isset($_SESSION['login'])){
 		while ($win > 1) {
 			echo "</br>";
 		
-			$critDmg = $stat["weaponDmg"] * 2;
-			$enemyCritDmg = $enemyStat["weaponDmg"] * 2;
+			$critDmg = $stat["itemDmg"] * 2;
+			$enemyCritDmg = $enemyStat["itemDmg"] * 2;
 		
-			$dmg = $stat["weaponDmg"] * rand(75, 125) /100;
+			$dmg = $stat["itemDmg"] * rand(75, 125) /100;
 			$dmg = round( $dmg, 2);
 			
-			$enemydmg = $enemyStat["weaponDmg"] * rand(75, 125) /100;	
+			$enemydmg = $enemyStat["itemDmg"] * rand(75, 125) /100;	
 			$enemydmg = round( $enemydmg, 2);
 			if( $i == 0)
 				{
 				if ((rand(-100, 0)+$stat['critChance']) > 0) {
-					$enemyStat["hp"]  -= $stat['weaponDmg'] * 2;
-					echo( "Zadałeś " .($stat['weaponDmg'] * 2). " dmg</br>");
+					$enemyStat["hp"]  -= $stat['itemDmg'] * 2;
+					echo( "Zadałeś " .($stat['itemDmg'] * 2). " dmg</br>");
 					// tutaj animacja jak jebniesz krytem
 				     }
 				else {
-					$enemyStat["hp"]  -= $stat["weaponDmg"];
-					echo( "Zadałeś " .$stat["weaponDmg"]. " dmg</br>");
+					$enemyStat["hp"]  -= $stat["itemDmg"];
+					echo( "Zadałeś " .$stat["itemDmg"]. " dmg</br>");
 					// tutaj animacja jak jebniesz 
 				    }
 				$i = 1;
@@ -85,18 +86,17 @@ if (isset($_SESSION['login'])){
 			else if ( $i == 1)
 			{
 				if((rand(-100, 0)+$enemyStat['critChance']) > 0) {
-					$stat['hp'] -= $enemyStat['weaponDmg'] * 2;
-					echo( "Przeciwnik zadał " .($enemyStat['weaponDmg'] * 2). " dmg</br>");
+					$stat['hp'] -= $enemyStat['itemDmg'] * 2;
+					echo( "Przeciwnik zadał " .($enemyStat['itemDmg'] * 2). " dmg</br>");
 					// tutaj animacja jak przeciwnik cie jebnie krytem
 				     }
 				else {
-				$stat["hp"] -= $enemyStat["weaponDmg"];
-					echo( "Przeciwnik zadał " .$enemyStat["weaponDmg"]. " dmg</br>");
+				$stat["hp"] -= $enemyStat["itemDmg"];
+					echo( "Przeciwnik zadał " .$enemyStat["itemDmg"]. " dmg</br>");
 					// tutaj jak cie jebnie bez kryta
 				     }
 				$i = 0;
 			}	
-	
 			if ($stat["hp"] <= 0) {
 				echo "</br>Przegrałeś</br>";
 				$win = 1;
@@ -107,5 +107,6 @@ if (isset($_SESSION['login'])){
 			}
 		};
 	}
+	} else header("Location: arena.php");
 } else header("Location: login.php");
 ?>

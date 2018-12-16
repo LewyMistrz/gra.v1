@@ -125,7 +125,6 @@ p.main {
 <font style="font-family: Font" color="white"><a href="profile.php">Profil</a></br>
 <font style="font-family: Font" color="white"><a href="arena.php">Arena</a></br>
 
-
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script src="script.js"></script>
 <Script>
@@ -134,7 +133,6 @@ p.main {
 	document.getElementById("server").innerHTML = stat.server;
 	document.getElementById("realCash").innerHTML = stat.realCash;
 	document.getElementById("gold").innerHTML = stat.gold;
-
 </script>
 
 </body>

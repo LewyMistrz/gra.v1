@@ -5,7 +5,7 @@ require 'filtruj.php';
 $login = $_SESSION['login'];
 
 if(isset($_POST['plus'])) {
-	$GOLDquer="select gold from users where nickname='".$login."'";
+	$GOLDquer="select gold from users where nickname='$login'";
 	$goldMYSQL= mysqli_query($i, $GOLDquer);
 	$gold = mysqli_fetch_array($goldMYSQL);
 	$stat = filtruj($_POST['plus']);

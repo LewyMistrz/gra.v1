@@ -4,6 +4,7 @@ if (isset($_SESSION['login'])){
 	$login = $_SESSION['login'];
 require 'connectToDatabase.php';
 require 'filtruj.php';
+require 'getStat.php';
 ?>
 
 <style>
@@ -171,8 +172,10 @@ document.getElementById("critChance").innerHTML = stat.critChance;
 
 </body>
 <?php
-if ($fights[0] < 15)
-echo "<div class='c'></br><input type='submit' value='Atak!' name='atak' onclick='atakuj();'></div></br>";
+
+$stat = getStat($login);
+if ($stat['fights'] < 15)
+echo "<form action='/battle.php' method='post'><input hidden name='enemy' id='enemy' value='admin'><div class='c'></br><input type='submit' value='Atak!' name='atak' onclick='atakuj();'></form></div></br>";
 else echo "<div class='c'>nie masz już energii</div></br>";
 }
 else header("Location: login.php");
