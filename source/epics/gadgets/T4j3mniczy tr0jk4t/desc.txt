@@ -1,0 +1,4 @@
+???
++2% HP
++2% damage
++2% crit damage
