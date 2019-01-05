@@ -122,6 +122,11 @@ div {
 <?php
 require 'connectToDatabase.php';
 require 'filtruj.php';
+session_start(); 
+if (isset($_SESSION['login'])){
+	header("Location: profile.php");
+	exit();
+}
 if (isset($_POST['loguj']))
 {
 	$login = filtruj($_POST['login']);
@@ -132,7 +137,6 @@ if (isset($_POST['loguj']))
 	$rekordy = mysqli_query($i, "SELECT nickname, password FROM users WHERE nickname = '".$login."' AND password = '".hash('sha256', $haslo)."'");
 	if (mysqli_num_rows($rekordy) != 0){
 		mysqli_query($i, "UPDATE users SET loginTime='".date('Y-m-d H:i:s')."', ip='".$_SERVER['REMOTE_ADDR']."' WHERE nickname='".$login."'");
-		session_start(); 
 		$_SESSION['zalogowany'] = true;
 		$_SESSION['login'] = $login;
 		//zalogowany

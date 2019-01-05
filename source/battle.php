@@ -33,14 +33,14 @@ p.main {
 <?php
 session_start();
 if (isset($_SESSION['login'])){
-	if (isset($_POST['enemy'])) {
+	if (isset($_GET['enemy'])) {
 	$login = $_SESSION['login'];
 	
 	require "connectToDatabase.php";
 	require "filtruj.php";
 	include "getStat.php";
 	
-	$enemy = filtruj($_POST['enemy']);
+	$enemy = filtruj($_GET['enemy']);
 	$stat = getStat($login);
 	$enemyStat = getStat($enemy);
 	
@@ -54,7 +54,7 @@ if (isset($_SESSION['login'])){
 	else {
 		mysqli_query($i, "UPDATE users SET fights= fights +1 WHERE nickname='$login'");
 	
-		$i = rand(0, 1);
+		$c = rand(0, 1);
 	
 		$win = 2; 
 	
@@ -69,7 +69,7 @@ if (isset($_SESSION['login'])){
 			
 			$enemydmg = $enemyStat["itemDmg"] * rand(75, 125) /100;	
 			$enemydmg = round( $enemydmg, 2);
-			if( $i == 0)
+			if( $c == 0)
 				{
 				if ((rand(-100, 0)+$stat['critChance']) > 0) {
 					$enemyStat["hp"]  -= $stat['itemDmg'] * 2;
@@ -81,9 +81,9 @@ if (isset($_SESSION['login'])){
 					echo( "Zadałeś " .$stat["itemDmg"]. " dmg</br>");
 					// tutaj animacja jak jebniesz 
 				    }
-				$i = 1;
+				$c = 1;
 			}	
-			else if ( $i == 1)
+			else if ( $c == 1)
 			{
 				if((rand(-100, 0)+$enemyStat['critChance']) > 0) {
 					$stat['hp'] -= $enemyStat['itemDmg'] * 2;
@@ -95,15 +95,27 @@ if (isset($_SESSION['login'])){
 					echo( "Przeciwnik zadał " .$enemyStat["itemDmg"]. " dmg</br>");
 					// tutaj jak cie jebnie bez kryta
 				     }
-				$i = 0;
+				$c = 0;
 			}	
 			if ($stat["hp"] <= 0) {
 				echo "</br>Przegrałeś</br>";
+				
+				$gold = $stat["gold"] * 0.05;
+				echo $gold;
+				mysqli_query($i, "UPDATE users SET gold=gold + '$gold' WHERE nickname='$enemy'");
+				mysqli_query($i, "UPDATE users SET gold=gold - '$gold' WHERE nickname='$login'");
+				
 				$win = 1;
 			}		
 			if ($enemyStat["hp"] <= 0) {
 				echo "</br>Wygrałeś</br>";
-				$win = 0;
+				
+				$gold = $enemyStat["gold"] * 0.05;
+				echo $gold;
+				mysqli_query($i, "UPDATE users SET gold=gold - '$gold' WHERE nickname='$enemy'");
+				mysqli_query($i, "UPDATE users SET gold=gold + '$gold' WHERE nickname='$login'");
+				
+				$win = 0;	
 			}
 		};
 	}

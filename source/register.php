@@ -3,6 +3,12 @@ require 'connectToDatabase.php';
 require 'sendMail.php';
 require 'filtruj.php';
 
+session_start(); 
+if (isset($_SESSION['login'])){
+	header("Location: profile.php");
+	exit();
+}
+
 if (isset($_POST['register']))
 {
    $login = filtruj($_POST['nickName']);
@@ -10,50 +16,38 @@ if (isset($_POST['register']))
    $haslo2 = filtruj($_POST['marek']);
    $email = filtruj($_POST['email']);
    $championClass = filtruj($_POST['championClass']);
-   $verifyText = hash('sha256', rand(0, 5000));
+   $verifyText = hash('sha256', rand(0, 500000));
    
    if ($championClass == "Archer" || $championClass == "Assasin" || $championClass == "Dark mage" || $championClass == "Mage" || 
-   $championClass == "Palladin" || $championClass == "Warrior")
-   {
-	    if (strlen($login) <= 15  )
-		{	
-			if (mysqli_num_rows(mysqli_query($i, "SELECT nickname FROM users WHERE nickname = '".$login."';")) == 0)
-			{
-				if (mysqli_num_rows(mysqli_query($i, "SELECT email FROM users WHERE email = '".$email."';")) == 0)
-				{
-					if ($haslo1 == $haslo2) // sprawdzamy czy hasła takie same
-					{
-						if ( !empty($login) )
-						{   
-							if (!empty($haslo1) )
-							{
-								if ( !empty($email) ) 
-								{
-									if(filter_var($email, FILTER_VALIDATE_EMAIL))
-									{
-									mysqli_query($i, "INSERT INTO users (nickname, email, password, server, gold, realCash, championClass, expa, gender, verifyText, isVerified, registerTime, loginTime, ip, avatar, lvl, dmgStat, stamina, speed, dexterity, luck, fights, troph)     
-													  VALUE( '".$login."', '".$email."', '".hash('sha256', $haslo1)."', 'W1', 0, 10, '".$championClass."', 0, 0,'".$verifyText."', 0, '".date('Y-m-d H:i:s')."', '".date('Y-m-d H:i:s')."', '".$_SERVER['REMOTE_ADDR']."', 'graphics/\avatar\/null.png', 1, 10, 10, 10, 10, 10, 0, 0 )");
-									echo "Konto zostało utworzone!";
-									sendVerifyMail($email, $verifyText, $login);
-									header("Location: login.php"); 
-									}
-									else echo "Email nieprawidłowy";
-								}	
-								else echo "Pole email nie może być puste";
-							}	
-							else echo "Pole hasło nie może być puste";
-						}		
-						else echo "Pole login nie może być pusty";	
-					}
-					else echo "Hasła nie są takie same";
-				}
-				else echo "Podany email jest już zajęty.";
-			}
-			else echo "Podany login jest już zajęty.";
-		}
-		else echo "Podany login jest za długi";
-	}
-	else echo "error nieprawidłowa klasa";
+		$championClass == "Palladin" || $championClass == "Warrior") {
+	    if (strlen($login) <= 15  ) {	
+			if (mysqli_num_rows(mysqli_query($i, "SELECT nickname FROM users WHERE nickname = '".$login."';")) == 0) {
+				if (mysqli_num_rows(mysqli_query($i, "SELECT email FROM users WHERE email = '".$email."';")) == 0) {
+					if ($haslo1 == $haslo2) {
+						if ( !empty($login) ) {   
+							if (!empty($haslo1) ) {
+								if ( !empty($email) ) {
+									if(filter_var($email, FILTER_VALIDATE_EMAIL)) {
+										
+										mysqli_query($i, "INSERT INTO users (nickname, email, password, server, gold, realCash, championClass, expa, gender, verifyText, isVerified, registerTime, loginTime, ip, avatar, lvl, dmgStat, stamina, speed, dexterity, luck, fights, troph)     
+														VALUE( '".$login."', '".$email."', '".hash('sha256', $haslo1)."', 'W1', 0, 10, '".$championClass."', 0, 0,'".$verifyText."', 0, '".date('Y-m-d H:i:s')."', '".date('Y-m-d H:i:s')."', '".$_SERVER['REMOTE_ADDR']."', 'graphics/\avatar\/null.png', 1, 10, 10, 10, 10, 10, 0, 0 )");
+									
+										$_SESSION['zalogowany'] = true;
+										$_SESSION['login'] = $login;
+										echo "Konto zostało utworzone!";
+									
+										sendVerifyMail($email, $verifyText, $login);
+										header("Location: profile.php"); 
+										
+									} else echo "Email nieprawidłowy";
+								} else echo "Pole E-Mail nie może być puste";
+							} else echo "Pole hasło nie może być puste";
+						} else echo "Pole login nie może być pusty";	
+					} else echo "Hasła nie są takie same";
+				} else echo "Podany email jest już zajęty.";
+			} else echo "Podany login jest już zajęty.";
+		} else echo "Podany login jest za długi";
+	} else echo "Nieprawidłowa klasa";
 }	
 ?>
 <head>
