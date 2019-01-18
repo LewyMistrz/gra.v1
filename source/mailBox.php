@@ -34,6 +34,23 @@ if (isset($_SESSION['login'])){
 	} else echo "pole odbiorca nie moze być puste";	
 	
 	
+	//tutaj wstepna wersja skrzynki odbiorczej
+	$query = mysqli_query($i, "select * from message where recipient='".$login."'");
+while($rekord = mysqli_fetch_array($query))
+{
+$naz = "<div id='element'>
+			<div id='name'>
+				<h1>Tytuł: $rekord[1] | Autor: $rekord[3]</h1>
+			</div>
+			<div id='inne'>
+				<p>$rekord[2]</p>
+			</div>
+		</div> </br>
+
+		";
+		echo '<ul>'.$naz.'</ul>';
+}
+	
 	
 }else header("Location: login.php");	
 ?> 
