@@ -1,8 +1,8 @@
-# SFGAME
+# Gra.v1
 
-SFGAME tylko lepsze.
+Skomplikowana fabuła w prostej grze.
 
-autorzy: Maciej L. Kacper G.
+autorzy: LewyMistrz Kacper G.
 
 baza danych: mysql database
 
