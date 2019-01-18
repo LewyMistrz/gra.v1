@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.0
+-- version 4.8.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 15 Gru 2018, 16:12
--- Wersja serwera: 10.1.31-MariaDB
--- Wersja PHP: 7.2.4
+-- Czas generowania: 18 Sty 2019, 23:08
+-- Wersja serwera: 10.1.37-MariaDB
+-- Wersja PHP: 7.3.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -25,12 +25,86 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Struktura tabeli dla tabeli `clan`
+--
+
+CREATE TABLE `clan` (
+  `clanName` text COLLATE utf8_bin NOT NULL,
+  `clanGold` int(11) NOT NULL,
+  `expBonus` int(11) NOT NULL,
+  `goldBonus` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `clandungeon`
+--
+
+CREATE TABLE `clandungeon` (
+  `clanName` text COLLATE utf8_bin NOT NULL,
+  `dungeonName` text COLLATE utf8_bin NOT NULL,
+  `isPassed` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `clanmember`
+--
+
+CREATE TABLE `clanmember` (
+  `nickname` text COLLATE utf8_bin NOT NULL,
+  `clanName` text COLLATE utf8_bin NOT NULL,
+  `clanFunction` text COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `clanperk`
+--
+
+CREATE TABLE `clanperk` (
+  `clanName` text COLLATE utf8_bin NOT NULL,
+  `perkName` text COLLATE utf8_bin NOT NULL,
+  `isActive` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `clanwar`
+--
+
+CREATE TABLE `clanwar` (
+  `clanName` text COLLATE utf8_bin NOT NULL,
+  `enemyClan` text COLLATE utf8_bin NOT NULL,
+  `whoWon` int(11) NOT NULL,
+  `date` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `classbasestats`
+--
+
+CREATE TABLE `classbasestats` (
+  `class` text COLLATE utf8_bin NOT NULL,
+  `statName` text COLLATE utf8_bin NOT NULL,
+  `StatValue` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- --------------------------------------------------------
+
+--
 -- Struktura tabeli dla tabeli `eq`
 --
 
 CREATE TABLE `eq` (
   `id` int(11) NOT NULL,
-  `username` text COLLATE utf8_bin NOT NULL,
+  `nickname` text COLLATE utf8_bin NOT NULL,
   `name` text COLLATE utf8_bin NOT NULL,
   `isEquiped` int(11) NOT NULL,
   `type` text COLLATE utf8_bin NOT NULL,
@@ -57,12 +131,39 @@ CREATE TABLE `eq` (
 -- Zrzut danych tabeli `eq`
 --
 
-INSERT INTO `eq` (`id`, `username`, `name`, `isEquiped`, `type`, `avatar`, `itemDmg`, `itemArmor`, `itemMagicResist`, `itemBlock`, `itemCritMultiplier`, `intelligence`, `itemStrength`, `itemDexterity`, `itemStamina`, `itemLuck`, `Archer`, `Assasin`, `DarkMage`, `Mage`, `Palladin`, `Warrior`) VALUES
+INSERT INTO `eq` (`id`, `nickname`, `name`, `isEquiped`, `type`, `avatar`, `itemDmg`, `itemArmor`, `itemMagicResist`, `itemBlock`, `itemCritMultiplier`, `intelligence`, `itemStrength`, `itemDexterity`, `itemStamina`, `itemLuck`, `Archer`, `Assasin`, `DarkMage`, `Mage`, `Palladin`, `Warrior`) VALUES
 (1, 'LewyMistrz', 'Dildo pała', 1, 'weapon', 'graphics/avatar/dildoPala.png', 69, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0),
 (2, 'admin', 'Dildo pała', 1, 'weapon', 'graphics/avatar/dildoPala.png', 69, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0),
 (3, 'LewyMistrz', '7-milowe buty', 1, 'buty', '\\graphics\\items\\7-milowe buty.png', 0, 10, 10, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1),
-(4, 'LewyMistrz', 'dwupalcowy kolczasty kastet', 1, 'pierscien', '\\graphics\\items\\dwupalcowy kolczasty kastet.png', 0, 0, 0, 0, 5, 0, 2, 0, 0, 2, 0, 1, 0, 0, 0, 0),
-(5, 'LewyMistrz', 'dziewicza tarcza', 1, 'tarcza', '\\graphics\\items\\dziewicza tarcza.png', 0, 25, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0);
+(4, 'LewyMistrz', 'dwupalcowy kolczasty kastet', 1, 'pierscien', '\\graphics\\items\\dwupalcowy kolczasty kastet.png', 0, 0, 0, 0, 5, 0, 2, 0, 0, 2, 0, 1, 0, 0, 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `message`
+--
+
+CREATE TABLE `message` (
+  `title` text COLLATE utf8_bin NOT NULL,
+  `content` text COLLATE utf8_bin NOT NULL,
+  `author` text COLLATE utf8_bin NOT NULL,
+  `recipient` text COLLATE utf8_bin NOT NULL,
+  `isRead` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `mission`
+--
+
+CREATE TABLE `mission` (
+  `missionName` text COLLATE utf8_bin NOT NULL,
+  `missionDescription` text COLLATE utf8_bin NOT NULL,
+  `minGold` int(11) NOT NULL,
+  `maxGold` int(11) NOT NULL,
+  `time` time NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
 
@@ -85,6 +186,18 @@ CREATE TABLE `news` (
 INSERT INTO `news` (`id`, `title`, `text`, `author`, `data`) VALUES
 (1, 'a', 'c', 'b', '2018-10-30'),
 (2, 'chce', 'newsa', 'napisac', '2018-10-30');
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `relations`
+--
+
+CREATE TABLE `relations` (
+  `nickname` text COLLATE utf8_bin NOT NULL,
+  `user` text COLLATE utf8_bin NOT NULL,
+  `relation` text COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
 
@@ -123,8 +236,21 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`nickname`, `email`, `password`, `server`, `gold`, `realCash`, `ChampionClass`, `expa`, `gender`, `verifyText`, `isVerified`, `registerTime`, `loginTime`, `ip`, `avatar`, `lvl`, `dmgStat`, `stamina`, `speed`, `dexterity`, `luck`, `fights`, `troph`) VALUES
-('LewyMistrz', 'lewandowskimaciek82@gmail.com', '1306ddb0dbdb2cb13d5f06b39db13f3083372afc81e234f71710dd8df7065d70', 'W1', 5, 10, 'Assasin', 0, 0, '4fdc8d7d404bc07349ffce4cd89e1086a602d2d0333732a7b0c917314035492d', 0, '2018-11-06 15:50:45', '2018-12-15 14:29:58', '::1', 'graphics/avatar/null.png', 1, 16, 122, 12, 12, 12, 0, 0),
-('admin', 'admin@admin.pl', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', 'W1', 0, 123456779, 'Assasin', 0, 0, '59279341ea59fbf34025024596b670b6df2c9f80e71b9ad19aea71ba43b083fc', 0, '2018-11-06 16:19:17', '2018-11-06 16:19:17', '::1', 'graphics/avatar/null.png', 1, 10, 132, 10, 10, 10, 0, 0);
+('LewyMistrz', 'lewandowskimaciek82@gmail.com', '1306ddb0dbdb2cb13d5f06b39db13f3083372afc81e234f71710dd8df7065d70', 'W1', 76, 10, 'Assasin', 0, 0, '4fdc8d7d404bc07349ffce4cd89e1086a602d2d0333732a7b0c917314035492d', 0, '2018-11-06 15:50:45', '2019-01-05 19:07:45', '::1', 'graphics/avatar/null.png', 1, 16, 122, 12, 12, 12, 81, 0),
+('admin', 'admin@admin.pl', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', 'W1', 274, 123456779, 'Assasin', 0, 0, '59279341ea59fbf34025024596b670b6df2c9f80e71b9ad19aea71ba43b083fc', 0, '2018-11-06 16:19:17', '2018-11-06 16:19:17', '::1', 'graphics/avatar/null.png', 1, 10, 132, 10, 10, 10, 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `work`
+--
+
+CREATE TABLE `work` (
+  `nickname` text COLLATE utf8_bin NOT NULL,
+  `startTime` datetime NOT NULL,
+  `goldHour` int(11) NOT NULL,
+  `isActive` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Indeksy dla zrzutów tabel

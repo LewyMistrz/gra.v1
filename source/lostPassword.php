@@ -9,22 +9,18 @@ if (isset($_POST['password'])  && isset($_POST['repassword']) && isset($_POST['e
 		$password = filtruj($_POST['password']);
 		$repassword = filtruj($_POST['repassword']);
 		$email = filtruj($_POST['email']);
-		if ($password == $repassword)
-		{
+		if ($password == $repassword) {
 			$passwd = hash("sha256", $password);
 			$vt = hash("sha256", rand(0, 5000));
 			$quer = "SELECT email from users where email='$email' and verifyText='$verifyText'";
 			$search = mysqli_query($i, $quer); 
-			if(mysqli_num_rows($search) == 1)
-			{
+			if(mysqli_num_rows($search) == 1) {
 				$query = "UPDATE users SET password='$passwd', verifyText='$vt' WHERE email='$email' AND verifyText='$verifyText'";
 				mysqli_query($i, $query);
 				echo "Hasło zmienione";
-				//header("Location: login.php"); 
-			}
-			else echo "Nieprawidłowy email lub kod";
-		}
-		else echo "Podane hasła nie są takie same";
+				header("Location: login.php"); 
+			} else echo "Nieprawidłowy email lub kod";
+		} else echo "Podane hasła nie są takie same";
 }
 else 
 {
@@ -67,12 +63,12 @@ else
 				echo 'Nieprawidłowy lub nie zweryfikowany email';
 		}
 		else
-		{
-		echo "<form method='POST' action='lostPassword.php'>
+			?>
+			 <form method='POST' action='lostPassword.php'>
 				Podaj email: <input type='text' id='email'	name='email'   > </br>
 				<input type='submit' value='Ok' name='Ok'/>
-			</form>";
-		}
+			</form>
+			<?php
 	}
 }
 ?>

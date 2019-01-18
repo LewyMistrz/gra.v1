@@ -30,7 +30,6 @@ if (isset(/*$_GET*/$_POST['nick'])){
 	$return["dodge"] = $dodge;
 	$return["hp"] = $hp;
 	
-	
 	echo json_encode($return);
 } else {
 	if (isset($_POST['stat'])) {

@@ -33,14 +33,14 @@ p.main {
 <?php
 session_start();
 if (isset($_SESSION['login'])){
-	if (isset($_GET['enemy'])) {
+	if (isset($_POST['enemy'])) {
 	$login = $_SESSION['login'];
 	
 	require "connectToDatabase.php";
 	require "filtruj.php";
 	include "getStat.php";
 	
-	$enemy = filtruj($_GET['enemy']);
+	$enemy = filtruj($_POST['enemy']);
 	$stat = getStat($login);
 	$enemyStat = getStat($enemy);
 	
@@ -75,33 +75,31 @@ if (isset($_SESSION['login'])){
 					$enemyStat["hp"]  -= $stat['itemDmg'] * 2;
 					echo( "Zadałeś " .($stat['itemDmg'] * 2). " dmg</br>");
 					// tutaj animacja jak jebniesz krytem
-				     }
+				}
 				else {
 					$enemyStat["hp"]  -= $stat["itemDmg"];
 					echo( "Zadałeś " .$stat["itemDmg"]. " dmg</br>");
 					// tutaj animacja jak jebniesz 
-				    }
+				}
 				$c = 1;
 			}	
-			else if ( $c == 1)
-			{
+			else if ( $c == 1) {
 				if((rand(-100, 0)+$enemyStat['critChance']) > 0) {
 					$stat['hp'] -= $enemyStat['itemDmg'] * 2;
 					echo( "Przeciwnik zadał " .($enemyStat['itemDmg'] * 2). " dmg</br>");
 					// tutaj animacja jak przeciwnik cie jebnie krytem
-				     }
+				}
 				else {
-				$stat["hp"] -= $enemyStat["itemDmg"];
+					$stat["hp"] -= $enemyStat["itemDmg"];
 					echo( "Przeciwnik zadał " .$enemyStat["itemDmg"]. " dmg</br>");
 					// tutaj jak cie jebnie bez kryta
-				     }
+				}
 				$c = 0;
 			}	
 			if ($stat["hp"] <= 0) {
 				echo "</br>Przegrałeś</br>";
 				
 				$gold = $stat["gold"] * 0.05;
-				echo $gold;
 				mysqli_query($i, "UPDATE users SET gold=gold + '$gold' WHERE nickname='$enemy'");
 				mysqli_query($i, "UPDATE users SET gold=gold - '$gold' WHERE nickname='$login'");
 				
@@ -111,7 +109,6 @@ if (isset($_SESSION['login'])){
 				echo "</br>Wygrałeś</br>";
 				
 				$gold = $enemyStat["gold"] * 0.05;
-				echo $gold;
 				mysqli_query($i, "UPDATE users SET gold=gold - '$gold' WHERE nickname='$enemy'");
 				mysqli_query($i, "UPDATE users SET gold=gold + '$gold' WHERE nickname='$login'");
 				
