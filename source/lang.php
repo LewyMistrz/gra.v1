@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 function printText($textID) {
 	require 'connectToDatabase.php';
 	 if (!isset($Language)) {

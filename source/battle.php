@@ -1,4 +1,4 @@
-<style>
+﻿<style>
 h1 {
     text-shadow: 0px 0px 15px black;
 }
@@ -33,14 +33,15 @@ p.main {
 <?php
 session_start();
 if (isset($_SESSION['login'])){
-	if (isset($_POST['enemy'])) {
+	if (isset($_GET['enemy'])) {
 	$login = $_SESSION['login'];
 	
 	require "connectToDatabase.php";
 	require "filtruj.php";
 	include "getStat.php";
+	require "lang.php";
 	
-	$enemy = filtruj($_POST['enemy']);
+	$enemy = filtruj($_GET['enemy']);
 	$stat = getStat($login);
 	$enemyStat = getStat($enemy);
 	
@@ -50,7 +51,7 @@ if (isset($_SESSION['login'])){
 		$isLoginUsed = 0;
 	else $isLoginUsed = 1;
 	if ($isLoginUsed == 0)
-		echo "przeciwnik o takim nicku nie istnieje";
+		echo printText(5);
 	else {
 		mysqli_query($i, "UPDATE users SET fights= fights +1 WHERE nickname='$login'");
 	
@@ -97,7 +98,7 @@ if (isset($_SESSION['login'])){
 				$c = 0;
 			}	
 			if ($stat["hp"] <= 0) {
-				echo "</br>Przegrałeś</br>";
+				printText(1);
 				
 				$gold = $stat["gold"] * 0.05;
 				mysqli_query($i, "UPDATE users SET gold=gold + '$gold' WHERE nickname='$enemy'");
@@ -106,7 +107,7 @@ if (isset($_SESSION['login'])){
 				$win = 1;
 			}		
 			if ($enemyStat["hp"] <= 0) {
-				echo "</br>Wygrałeś</br>";
+				printText(6);
 				
 				$gold = $enemyStat["gold"] * 0.05;
 				mysqli_query($i, "UPDATE users SET gold=gold - '$gold' WHERE nickname='$enemy'");

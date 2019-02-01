@@ -2,6 +2,7 @@
 session_start();
 require 'connectToDatabase.php';
 require 'filtruj.php';
+require "lang.php";
 if (isset($_SESSION['login'])){
 	
 	$login = $_SESSION['login'];
@@ -126,7 +127,7 @@ input[type=submit]:hover {
 
 <font style="font-family: Font" color="white">
 <h1><p>
-<font style="font-family: Font" color="white"><a href="logout.php"><p class="date">Wyloguj</a></br>
+<font style="font-family: Font" color="white"><a href="logout.php"><p class="date"><?php printText(2); ?></a></br>
 </p>
 
 <img src="\graphics\to do.png" alt="Smiley face" align="right">
@@ -135,12 +136,12 @@ input[type=submit]:hover {
 if($login != $_SESSION['login'])
 echo " <center>Nick: <span id='nick'>$login</span> </center> </br>";	
 ?>
-<font size="5" color="white">Świat <font color="yellow"> <span id='server'></span> </br>
-<font size="5" color="white">Hajs <font color="yellow"> <span id='realCash'></span> </br>
-<font size="5" color="white">Złoto <font color="yellow"> <span id='gold'></span> </br></br></br>
+<font size="5" color="white"><?php printText(3); ?> <font color="yellow"> <span id='server'></span> </br>
+<font size="5" color="white"><?php printText(7); ?> <font color="yellow"> <span id='realCash'></span> </br>
+<font size="5" color="white"><?php printText(8); ?> <font color="yellow"> <span id='gold'></span> </br></br></br>
 
-<font style="font-family: Font" color="white"><a href="profile.php">Profil</a></br>
-<font style="font-family: Font" color="white"><a href="arena.php">Arena</a></br>
+<font style="font-family: Font" color="white"><a href="profile.php"><?php printText(9); ?></a></br>
+<font style="font-family: Font" color="white"><a href="arena.php"><?php printText(10); ?></a></br>
 
 <h2>
 <?php
