@@ -164,7 +164,7 @@ if($login == $_SESSION['login']) {
 <center><font size="7" color="white">Poziom <span id='lvl'></span> <font size="5"></br></br></br></h1>
 
 <center><font color="silver"> <span id='dmgStatName'> </span> <font color="white"> <span id='dmgStat'></span>
-<font color="silver"></b> Obrażenia <font color="white"><span id='weaponDmg'> </span></br>
+<font color="silver"></b> Obrażenia <font color="white"><span id='dmg'> </span></br>
 
 <font color="silver">Wytrzymałość <font color="white"> <span id='stamina'></span>
 <font color="silver"></b>Punkty życia <font color="white"><span id='hp'></span></br>
@@ -193,7 +193,7 @@ if($login == $_SESSION['login']) {
 		
 		document.getElementById("dmgStatName").innerHTML = whichClass(stat);	
 		document.getElementById("dmgStat").innerHTML = stat.dmgStat;
-		document.getElementById("weaponDmg").innerHTML = stat.weaponDmg;
+		document.getElementById("dmg").innerHTML = stat.dmg;
 		document.getElementById("stamina").innerHTML = stat.stamina;
 		document.getElementById("luck").innerHTML = stat.luck;
 		document.getElementById("speed").innerHTML = stat.speed;

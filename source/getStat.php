@@ -6,15 +6,15 @@ if (isset(/*$_GET*/$_POST['nick'])){
 	$login = filtruj(/*$_GET*/$_POST['nick']);
 	
 	
-	$STATquer="select server, gold, realCash, ChampionClass, expa, lvl, dmgStat, stamina, speed, dexterity, luck, fights, troph from users where nickname='$login'";
+	$STATquer="select server, gold, realCash, ChampionClass, expa, lvl, dmg, dmgStat, stamina, speed, dexterity, luck, fights, troph from users where nickname='$login'";
 	$statMYSQL= mysqli_query($i, $STATquer);
 	$state = mysqli_fetch_array($statMYSQL, MYSQLI_ASSOC);
 	
-	$WEAPONquer="select id from eq where username='$login' AND isEquiped='1' AND type='weapon'";
+	$WEAPONquer="select id from eq where nickname='$login' AND isEquiped='1' AND type='weapon'";
 	$weaponMYSQL= mysqli_query($i, $WEAPONquer);
 	$weapon = mysqli_fetch_array($weaponMYSQL);
 	
-	$WEAPONSTATquer="select * from eq where username='$login' AND id='$weapon[0]'";
+	$WEAPONSTATquer="select * from eq where nickname='$login' AND id='$weapon[0]'";
 	$weaponstatMYSQL= mysqli_query($i, $WEAPONSTATquer);
 	$ws = mysqli_fetch_array($weaponstatMYSQL, MYSQLI_ASSOC);
 	
@@ -26,6 +26,7 @@ if (isset(/*$_GET*/$_POST['nick'])){
 	$hp = $state['stamina'] * $state['lvl'];
 	$return = array_merge($state, $ws);
 	
+	$return["dmg"] = ($state["dmgStat"]+$state["dmg"])*$ws["itemDmg"];
 	$return["critChance"] = $critChance;
 	$return["dodge"] = $dodge;
 	$return["hp"] = $hp;
@@ -44,15 +45,15 @@ if (isset(/*$_GET*/$_POST['nick'])){
 
 function getStat($login){
 	require "connectToDatabase.php";
-	$STATquer="select server, gold, realCash, ChampionClass, expa, lvl, dmgStat, stamina, speed, dexterity, luck, fights, troph from users where nickname='$login'";
+	$STATquer="select server, gold, realCash, ChampionClass, expa, lvl, dmg, dmgStat, stamina, speed, dexterity, luck, fights, troph from users where nickname='$login'";
 	$statMYSQL= mysqli_query($i, $STATquer);
 	$state = mysqli_fetch_array($statMYSQL, MYSQLI_ASSOC);
 	
-	$WEAPONquer="select id from eq where username='$login' AND isEquiped='1' AND type='weapon'";
+	$WEAPONquer="select id from eq where nickname='$login' AND isEquiped='1' AND type='weapon'";
 	$weaponMYSQL= mysqli_query($i, $WEAPONquer);
 	$weapon = mysqli_fetch_array($weaponMYSQL);
 	
-	$WEAPONSTATquer="select * from eq where username='$login' AND id='$weapon[0]'";
+	$WEAPONSTATquer="select * from eq where nickname='$login' AND id='$weapon[0]'";
 	$weaponstatMYSQL= mysqli_query($i, $WEAPONSTATquer);
 	$ws = mysqli_fetch_array($weaponstatMYSQL, MYSQLI_ASSOC);
 	
@@ -60,6 +61,7 @@ function getStat($login){
 	if ($critChance >= 50)
 		$critChance = 50;
 	
+	$return["dmg"] = ($state["dmgStat"]+$state["dmg"])*$ws["itemDmg"];
 	$dodge = $state['speed'] / $state['lvl'];
 	$hp = $state['stamina'] * $state['lvl'];
 	$return = array_merge($state, $ws);

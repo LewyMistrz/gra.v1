@@ -12,7 +12,7 @@ if(isset($_POST['plus'])) {
 	$s = 0;
 	if ($stat == "inteligence") {
 		if ($gold[0] >= "10"){
-			mysqli_query($i, "UPDATE users SET dmgStat= dmgStat +1 WHERE nickname='$login'");
+			mysqli_query($i, "UPDATE users SET dmg= dmg +1 WHERE nickname='$login'");
 			mysqli_query($i, "UPDATE users SET gold= gold -10 WHERE nickname='$login'");
 			$s = 1;
 		} else echo "nie stać Cię pało";

@@ -15,7 +15,6 @@ if(mysqli_num_rows($search)!=0)
     mysqli_query($i, $query);
 	echo 'our account has been activated, you can now login';
 }
-	else
-        echo 'The url is either invalid or you already have activated your account.';
-    
+else
+    echo 'The url is either invalid or you already have activated your account.';
 ?>
